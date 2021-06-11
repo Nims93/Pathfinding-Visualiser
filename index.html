@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Structure Visulaliser</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <script src="./index.js" defer></script>
+  </head>
+  <body>
+    <main class="visulaiser-wrapper">
+      <div class="menu">
+        <div class="range-input-container">
+          <label for="grid-size">Choose grid size</label>
+          <input
+            type="range"
+            min="10"
+            max="40"
+            step="5"
+            value="10"
+            id="grid-size"
+          />
+          <output class="grid-size-output" for="grid-size">500</output>
+        </div>
+      </div>
+      <div class="visualiser"></div>
+    </main>
+  </body>
+</html>
