@@ -5,6 +5,8 @@ const gridSizeOutput = document.querySelector(".grid-size-output");
 const gridWrapper = document.querySelector(".visualiser");
 const demoBtn = document.querySelector("#demo-button");
 
+
+
 //node object to populate grid cells
 class Node {
   constructor(id) {
@@ -14,62 +16,49 @@ class Node {
     this.y = [...this.index][0];
     this.visited = false;
     this.isWall = false;
-    this.start = false;
-    this.end = false;
+    this.isStart = false;
+    this.isEnd = false;
   }
 
   up() {
-    if (this.index[0] <= 0) {
+    if (this.y <= 1) {
       return null;
     } else {
-      let index = [...this.index];
-      index[0] = Number(index[0]) - 1;
-      let upIndex = index.join("-");
-      return upIndex;
+      return `${this.y-1}-${this.x}`;
     }
   }
 
   right() {
-    if (this.index[1] >= grid[0][0].length - 1) {
+    if (this.x >= grid[0].length - 1) {
       return null;
     } else {
-      let index = [...this.index];
-      index[1] = Number(index[1]) + 1;
-      let rightIndex = index.join("-");
-      return rightIndex;
+      return `${this.y}-${this.x+1}`;
     }
   }
 
   down() {
-    if (this.index[0] >= grid.length - 1) {
+    if (this.y >= grid.length - 1) {
       return null;
     } else {
-      let index = [...this.index];
-      index[0] = Number(index[0]) + 1;
-      let downIndex = index.join("-");
-      return downIndex;
+      return `${this.y+1}-${this.x}`;
     }
   }
 
   left() {
-    if (this.index[1] <= 0) {
+    if (this.x <= 0) {
       return null;
     } else {
-      let index = [...this.index];
-      index[1] = Number(index[1]) - 1;
-      let leftIndex = index.join("-");
-      return leftIndex;
+      return `${this.y}-${this.x-1}`;
     }
   }
 
   getNeighbors() {
-    let neighbors = {
+    return {
       up: this.up(),
       right: this.right(),
       down: this.down(),
       left: this.left(),
     };
-    return neighbors;
   }
 }
 
@@ -114,18 +103,8 @@ function populateDOM(wrapper) {
 
 function sleep(time) {
   setTimeout((_) => {
-    console.log(1);
+    console.log(time);
   }, time);
-}
-
-function chooseOrientation(width, height) {
-  if (width < height) {
-    return "horizontal";
-  } else if (height < width) {
-    return "vertical";
-  } else {
-    Math.floor(Math.random() * 2) ? "horizontal" : "vertical";
-  }
 }
 
 function generateWallsRandom() {
@@ -182,87 +161,6 @@ function chooseOrientation(width, height) {
   }
 }
 
-function createMaze(index) {
-  let stack = [];
-  let visitedNodes = [];
-  stack.push(index);
-
-  while (stack.length) {
-    let [outerIndex, innerIndex] = stack.pop().split("-");
-    let currNode = grid[outerIndex][innerIndex];
-    if (visitedNodes.includes(currNode)) {
-      continue;
-    }
-
-    let neighbors = Object.values(currNode.getNeighbors()).filter(Boolean);
-  }
-}
-
-function depthFirstSearchTest(index) {
-  //queue data structure
-  let queue = [];
-  let visitedNodes = [];
-  queue.push(index);
-
-  while (queue.length) {
-    let [outerIndex, innerIndex] = queue.shift().split("-");
-    //ERROR breaking here values are undefined after second interation
-    let currNode = grid[outerIndex][innerIndex];
-    if (visitedNodes.includes(currNode)) {
-      continue;
-    }
-
-    let div = document.querySelector(`div[id="${outerIndex}-${innerIndex}"]`);
-    div.classList.add("wall-node");
-
-    //Push current vertex neighbors onto the stack that are within the bounds of the grid filtered by non null results returned by the Node getNeighbors method
-    let neighborValues = Object.values(currNode.getNeighbors()).filter(Boolean);
-
-    queue = queue.concat(neighborValues);
-
-    console.log(`Queue: ${queue}`);
-    visitedNodes.push(currNode);
-    queue.unshift();
-
-    sleep(500);
-  }
-}
-
-//---------------
-//
-//EVENT LISTENER DEFS
-//
-//---------------
-
-//initialise grid
-gridSizeOutput.textContent = gridSizeSlider.value;
-populateGrid(Number(gridSizeSlider.value));
-populateDOM(gridWrapper);
-
-//update grid and populte dom with divs as range slider is updated
-gridSizeSlider.addEventListener("input", () => {
-  grid = [];
-  gridWrapper.empty();
-  gridSizeOutput.textContent = gridSizeSlider.value;
-  populateGrid(Number(gridSizeSlider.value));
-  populateDOM(gridWrapper);
-});
-
-demoBtn.addEventListener("click", (e) => {
-  // let outerIndex = Math.floor(Math.random() * grid.length);
-  // let innerIndex = Math.floor(Math.random() * grid.length);
-  // depthFirstSearchTest(`${outerIndex}-${innerIndex}`);
-  // generateRandomWalls();
-  generateWallsPerimiter();
-  generateWallsRecursiveDivision(
-    1,
-    1,
-    grid[0].length - 2,
-    grid.length - 2,
-    chooseOrientation(grid[0].length, grid.length)
-  );
-});
-
 function generateWallsRecursiveDivision(
   xStart,
   yStart,
@@ -273,8 +171,8 @@ function generateWallsRecursiveDivision(
   let height = yEnd - yStart;
   let width = xEnd - xStart;
 
-  if ((width <= 2 ) || (height <= 2)) {
-    console.log('passed call')
+  if ((width < 2 ) || (height < 2)) {
+    console.log('passed call width: ' + width + ' height: ' + height)
     return;
   }
   
@@ -323,38 +221,200 @@ function generateWallsRecursiveDivision(
       dir = chooseOrientation(width - xDivideCoord + 1, height);
       generateWallsRecursiveDivision(xDivideCoord + 1, yStart, xEnd, yEnd, dir);
   }
-
-  /* let horizontal = orientation == 'horizontal';
-
-  let wallX = xStart + (horizontal ? 0 : randInt(xStart+1, xEnd-1));
-  let wallY = yStart + (horizontal ? randInt(yStart+1, yEnd-1) : 0);
-  let passageX = wallX + (horizontal ? randInt(xStart+1, xEnd-1) : 0);
-  let passageY = wallY + (horizontal ? 0 : randInt(yStart, yEnd));
-
-  let directionX = horizontal ? 1: 0;
-  let directionY = horizontal ? 0: 1;
-
-  let wallLength = horizontal ? xEnd - xStart : yEnd - yStart;
-
-  let dir = horizontal ? 'S' : 'E'; */
 }
 
-/*function generateWallsRecursiveDivision(x, y, width, height, orientation) {
-   if (width < 3 || height < 3) {return}
+function createMaze(index) {
+  let stack = [];
+  let visitedNodes = [];
+  stack.push(index);
 
-  horizontal = orientation === 'horizontal'
-  let wallX = x + (horizontal ? 0 :randInt(width-2));
-  let wallY = y +(horizontal ? randInt(height-2) : 0);
+  while (stack.length) {
+    let [outerIndex, innerIndex] = stack.pop().split("-");
+    let currNode = grid[outerIndex][innerIndex];
+    if (visitedNodes.includes(currNode)) {
+      continue;
+    }
 
-  //where will the passage through the wall exist
-  let passageX = wallX = (horizontal ? randInt(width) : 0);
-  let passageY = wallY = (horizontal ? 0 : randInt(height));
+    let neighbors = Object.values(currNode.getNeighbors()).filter(Boolean);
+  }
+}
 
-  let directionX = horizontal ? 1 : 0;
-  let directionY = horizontal ? 0 : 1;
+function depthFirstSearchTest(index) {
+  //queue data structure
+  let queue = [];
+  let visitedNodes = [];
+  queue.push(index);
 
-  let wallLength = horizontal ? width : height;
-  let dir = horizontal ? 'S' : 'E';
+  while (queue.length) {
+    let [outerIndex, innerIndex] = queue.shift().split("-");
+    //ERROR breaking here values are undefined after second interation
+    let currNode = grid[outerIndex][innerIndex];
+    if (visitedNodes.includes(currNode)) {
+      continue;
+    }
 
-  for (i=0; i < )
-} */
+    let div = document.querySelector(`div[id="${outerIndex}-${innerIndex}"]`);
+    div.classList.add("wall-node");
+
+    //Push current vertex neighbors onto the stack that are within the bounds of the grid filtered by non null results returned by the Node getNeighbors method
+    let neighborValues = Object.values(currNode.getNeighbors()).filter(Boolean);
+
+    queue = queue.concat(neighborValues);
+
+    console.log(`Queue: ${queue}`);
+    visitedNodes.push(currNode);
+    queue.shift();
+  }
+}
+
+//---------------
+//
+//EVENT LISTENER DEFS
+//
+//---------------
+
+
+
+//initialise grid
+gridSizeOutput.textContent = gridSizeSlider.value;
+populateGrid(Number(gridSizeSlider.value));
+populateDOM(gridWrapper);
+
+//update grid and populte dom with divs as range slider is updated and on page load
+gridSizeSlider.addEventListener("input", () => {
+  grid = [];
+  gridWrapper.empty();
+  gridSizeOutput.textContent = gridSizeSlider.value;
+  populateGrid(Number(gridSizeSlider.value));
+  populateDOM(gridWrapper);
+  setStartEndPositions();
+});
+
+demoBtn.addEventListener("click", (e) => {
+  // let outerIndex = Math.floor(Math.random() * grid.length);
+  // let innerIndex = Math.floor(Math.random() * grid.length);
+  // depthFirstSearchTest(`${outerIndex}-${innerIndex}`);
+  // generateRandomWalls();
+  grid = [];
+  gridWrapper.empty();
+  gridSizeOutput.textContent = gridSizeSlider.value;
+  populateGrid(Number(gridSizeSlider.value));
+  populateDOM(gridWrapper);
+  generateWallsPerimiter();
+  generateWallsRecursiveDivision(
+    1,
+    1,
+    grid[0].length - 2,
+    grid.length - 2,
+    chooseOrientation(grid[0].length, grid.length)
+  );
+});
+
+function setStartEndPositions() {
+  const gridWidth = grid[0].length - 1;
+  const gridHeight = grid.length - 1
+
+  const startAndEndY = Math.floor(gridHeight / 2);
+  const startX = Math.floor(0.15 * gridWidth);
+  const endX = Math.ceil(0.85 * gridWidth);
+
+  console.log('startX: ' +startX+ 'endX: ' +endX);
+
+  grid[startAndEndY][startX].isStart = true;
+  gridWrapper.querySelector(`div[id="${startAndEndY}-${startX}"]`).classList.add('start-node');
+
+  grid[startAndEndY][endX].isEnd = true;
+  gridWrapper.querySelector(`div[id="${startAndEndY}-${endX}"]`).classList.add('end-node');
+
+}
+
+
+let prevEle = gridWrapper.querySelector('div[id="0-0"]');
+let mouseDragging = false;
+
+gridWrapper.addEventListener('mousedown', e => {
+  e.preventDefault();
+  if (!e.target.classList.contains('visualiser')) {
+    const DOMEle = e.target;
+    const isWall = e.target.classList.contains('wall-node');
+    const isStart = e.target.classList.contains('start-node');
+    const isEnd = e.target.classList.contains('end-node');
+
+    if (e.buttons === 1 && !isWall && !isStart && !isEnd) {
+      gridWrapper.querySelector(`div[id="${DOMEle.id}"]`).classList.add('wall-node');
+      const gridCoords = DOMEle.id.split('-');
+      grid[gridCoords[0]][gridCoords[1]].isWall = true;
+      prevEle = DOMEle;
+    } else if (e.buttons === 1 && isWall && !isStart && !isEnd){
+      gridWrapper.querySelector(`div[id="${DOMEle.id}"]`).classList.remove('wall-node');
+      const gridCoords = DOMEle.id.split('-');
+      grid[gridCoords[0]][gridCoords[1]].isWall = false;
+      prevEle = DOMEle;
+    } else if (e.buttons === 1 && isStart) {
+      mouseDragging = true;
+      prevEle = DOMEle;
+    } else if (e.buttons === 1 && isEnd) {
+      mouseDragging = true;
+      prevEle = DOMEle;
+    }
+  } 
+});
+
+gridWrapper.addEventListener('mouseover', e => {
+ if (!e.target.classList.contains('visualiser')) {
+  
+  const DOMEle = e.target;
+  const isWall = e.target.classList.contains('wall-node');
+  const isStart = e.target.classList.contains('start-node');
+  const isEnd = e.target.classList.contains('end-node');
+
+  if (e.target != prevEle) {
+    if (e.buttons === 1 && prevEle.classList.contains('start-node')) {
+      prevEle.classList.remove('start-node');
+      const prevGridCoords = prevEle.id.split('-');
+      grid[prevGridCoords[0]][prevGridCoords[1]].isStart = false;
+
+      const current = gridWrapper.querySelector(`div[id="${DOMEle.id}"]`);
+      current.classList.add('start-node');
+      const gridCoords = current.id.split('-');
+      grid[gridCoords[0]][gridCoords[1]].isStart = true;
+
+      current.classList.remove('wall-node');
+      grid[gridCoords[0]][gridCoords[1]].isWall = false;
+
+      prevEle = DOMEle;
+    } else if (e.buttons === 1 && prevEle.classList.contains('end-node')) {
+      prevEle.classList.remove('end-node');
+      const prevGridCoords = prevEle.id.split('-');
+      grid[prevGridCoords[0]][prevGridCoords[1]].isEnd = false;
+
+      const current = gridWrapper.querySelector(`div[id="${DOMEle.id}"]`);
+      current.classList.add('end-node');
+      const gridCoords = current.id.split('-');
+      grid[gridCoords[0]][gridCoords[1]].isEnd = true;
+
+      current.classList.remove('wall-node');
+      grid[gridCoords[0]][gridCoords[1]].isWall = false;
+
+      prevEle = DOMEle;
+
+    } else if (e.buttons === 1 && isWall && !isStart && !isEnd) {
+      gridWrapper.querySelector(`div[id="${DOMEle.id}"]`).classList.remove('wall-node');
+      const gridCoords = DOMEle.id.split('-');
+      grid[gridCoords[0]][gridCoords[1]].isWall = false;
+      prevEle = DOMEle;
+
+    } else if (e.buttons === 1 && !isWall && !isStart && !isEnd) {
+      gridWrapper.querySelector(`div[id="${DOMEle.id}"]`).classList.add('wall-node');
+      const gridCoords = DOMEle.id.split('-');
+      grid[gridCoords[0]][gridCoords[1]].isWall = true;
+      prevEle = DOMEle;
+    }
+ }}
+});
+
+gridWrapper.addEventListener('mouseup', e => {
+  if (e.buttons === 1 && mouseDragging && prevEle.classList.contains('start-node')) {
+
+  }
+});

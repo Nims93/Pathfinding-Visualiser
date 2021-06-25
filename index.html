@@ -12,16 +12,17 @@
     <main class="visulaiser-wrapper">
       <div class="menu">
         <div class="range-input-container">
-          <label for="grid-size">Choose grid size</label>
+          <label for="grid-size-slider">Choose grid size</label>
           <input
             type="range"
-            min="10"
-            max="40"
-            step="5"
-            value="10"
-            id="grid-size"
+            min="11"
+            max="41"
+            step="10"
+            value="21"
+            id="grid-size-slider"
           />
-          <output class="grid-size-output" for="grid-size">500</output>
+          <output class="grid-size-output" for="grid-size-slider">500</output>
+          <button value="0" type="button" id="demo-button">Demo</button>
         </div>
       </div>
       <div class="visualiser"></div>
