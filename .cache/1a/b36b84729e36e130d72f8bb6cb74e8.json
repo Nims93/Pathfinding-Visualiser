@@ -1,0 +1,17 @@
+{
+  "id": "anchor.png",
+  "dependencies": [
+    {
+      "name": "/home/nims/code/projects/data-structure-visualiser/package.json",
+      "includedInParent": true,
+      "mtime": 1623416653400
+    }
+  ],
+  "generated": {
+    "js": "module.exports = \"/03aeba325643f5147cf98b926fab787d.png\";"
+  },
+  "sourceMaps": null,
+  "error": null,
+  "hash": "36c1d7958417b347ab6e86f9e177b432",
+  "cacheData": { "env": {} }
+}

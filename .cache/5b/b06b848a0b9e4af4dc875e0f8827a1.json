@@ -1,0 +1,17 @@
+{
+  "id": "anvil.png",
+  "dependencies": [
+    {
+      "name": "/home/nims/code/projects/data-structure-visualiser/package.json",
+      "includedInParent": true,
+      "mtime": 1623416653400
+    }
+  ],
+  "generated": {
+    "js": "module.exports = \"/a38937ec6511e1020860b95c44575aad.png\";"
+  },
+  "sourceMaps": null,
+  "error": null,
+  "hash": "cac3acfac394b5de904ca43592dd8c45",
+  "cacheData": { "env": {} }
+}

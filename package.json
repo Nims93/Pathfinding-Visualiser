@@ -1,0 +1,13 @@
+{
+  "name": "data-structure-visualiser",
+  "version": "1.0.0",
+  "description": "Vanilla javasript project to grasp data sctructures and algos",
+  "main": "index.js",
+  "author": "Kieran Cyprien",
+  "license": "MIT",
+  "dependencies": {
+    "babel-eslint": "^10.1.0",
+    "parcel-bundler": "^1.10.3",
+    "prettier": "^2.3.1"
+  }
+}

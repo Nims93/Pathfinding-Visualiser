@@ -1,0 +1,24 @@
+{
+  "id": "index.html",
+  "dependencies": [
+    {
+      "name": "./style.css",
+      "dynamic": true,
+      "resolved": "/home/nims/code/projects/data-structure-visualiser/style.css",
+      "parent": "/home/nims/code/projects/data-structure-visualiser/index.html"
+    },
+    {
+      "name": "./index.js",
+      "dynamic": true,
+      "resolved": "/home/nims/code/projects/data-structure-visualiser/index.js",
+      "parent": "/home/nims/code/projects/data-structure-visualiser/index.html"
+    }
+  ],
+  "generated": {
+    "html": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\">\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Data Structure Visulaliser</title>\n    <link href=\"/da232d78aa810382f2dcdceae308ff8e.css\" rel=\"stylesheet\" type=\"text/css\">\n    <script src=\"/168726dbe96b3ce427e7fedce31bb0bc.js\" defer=\"\"></script>\n  </head>\n  <body>\n    <main class=\"visulaiser-wrapper\">\n      <div class=\"menu\">\n        <div class=\"range-input-container\">\n          <label for=\"grid-size\">Choose grid size</label>\n          <input type=\"range\" min=\"10\" max=\"40\" step=\"5\" value=\"25\" id=\"grid-size-slider\">\n          <output class=\"grid-size-output\" for=\"grid-size\">500</output>\n          <button value=\"0\" type=\"button\" id=\"demo-button\">Demo</button>\n        </div>\n      </div>\n      <div class=\"visualiser\"></div>\n    </main>\n  </body>\n</html>\n"
+  },
+  "sourceMaps": null,
+  "error": null,
+  "hash": "29cc5811efa9b9cff085f49f0d6de9e1",
+  "cacheData": {}
+}

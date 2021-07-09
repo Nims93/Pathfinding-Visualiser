@@ -1,0 +1,153 @@
+* {
+    box-sizing: border-box;
+    --visualiser-width: 95vw;
+    --font-color: white;
+    --theme: hsla(0, 0%, 19%, 0.93);
+}
+
+html {
+    margin: 0;
+    padding: 0;
+    font-size: 10px;
+    color: var(--font-color);
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    font-family: 'Lato', Helvetica, Arial, sans-serif;
+}
+
+.menu {
+    display: flex;
+    height: 6em;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+    background-color: var(--theme);
+    margin-bottom: 1rem;
+}
+
+h1 {
+    /* flex: 1; */
+    font-size: 3em;
+    margin: 0;
+}
+
+label[for='grid-size-slider'] {
+    font-size: 1.7em;
+    position: absolute;
+    top: 0.5em;
+}
+
+#grid-size-slider {
+    width: 10em;
+    position: relative;
+    top: 1em;
+}
+
+.dropdown-hover {
+    font-size: 2.2em;
+    position: relative;
+    padding: 0.6em 0;
+}
+
+.dropdown-menu-ul {
+    display: none;
+    list-style: none;
+    position: absolute;
+    top: 2.8em;
+    right: 0;
+    z-index: 10;
+    width: 100%;
+    padding: 0;
+}
+
+.dropdown-menu-ul button {
+    font-size: 0.7em;
+    padding: 0.5em 1em;
+    width: 100%;
+    border: none;
+    background-color: var(--theme);
+    color: var(--font-color);
+}
+
+.dropdown-menu-ul button:hover {
+    background-color: rgb(77, 145, 247);
+}
+
+.dropdown-menu-ul > li:last-child button {
+    padding-bottom: 1em;
+}
+
+#maze-gen-dropdown:hover .dropdown-menu-ul,
+#pathfinding-dropdown:hover .dropdown-menu-ul {
+    display: block;
+}
+
+.menu > button {
+    font-size: 1.8em;
+    border: none;
+    border-left: white solid;
+    border-right: white solid;
+    color: var(--font-color);
+    background-color: var(--theme);
+    height: 100%;
+    width: 13em;
+}
+/* ----------------------------------------- */
+/*---------- Visualiser Styling -------------*/
+/* ----------------------------------------- */
+
+.visualiser {
+    height: calc(var(--visualiser-width) * 0.45);
+    width: var(--visualiser-width);
+    margin: 0 auto;
+    background-color: red;
+    font-size: 0;
+    position: relative;
+}
+
+.visualiser > div {
+    display: inline-block;
+}
+
+.node {
+    background-color: rgb(236, 236, 236);
+    border: 1px solid rgb(43, 43, 43);
+    padding: 0;
+    margin: 0;
+}
+
+.visited {
+    background-color: aqua;
+}
+
+.path-node {
+    background-color: rgb(204, 7, 243);
+}
+
+.weighted-node {
+    background-image: url('./anchor.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 70%;
+}
+
+.wall-node {
+    background-color: black;
+    border-color: rgb(65, 68, 68);
+}
+
+.start-node {
+    background-color: rgb(201, 0, 0);
+}
+
+.end-node {
+    background-color: rgb(38, 226, 0);
+    background-image: url('checkered-flag.png');
+    background-repeat: no-repeat;
+    background-size: 80%;
+    background-position: center;
+}

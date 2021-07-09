@@ -1,0 +1,375 @@
+{
+  "id": "style.css",
+  "dependencies": [
+    {
+      "name": "./anchor.png",
+      "dynamic": true,
+      "resolved": "/home/nims/code/projects/data-structure-visualiser/anchor.png",
+      "loc": { "line": 33, "column": 5 },
+      "parent": "/home/nims/code/projects/data-structure-visualiser/style.css"
+    },
+    {
+      "name": "_css_loader",
+      "parent": "/home/nims/code/projects/data-structure-visualiser/style.css",
+      "resolved": "/home/nims/.nvm/versions/node/v15.8.0/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"
+    },
+    {
+      "name": "/home/nims/code/projects/data-structure-visualiser/package.json",
+      "includedInParent": true,
+      "mtime": 1623416653400
+    }
+  ],
+  "generated": {
+    "css": "* {\n    box-sizing: border-box;\n}\n\nhtml,\nbody {\n    margin: 0;\n    padding: 0;\n    font-size: 10px;\n}\n\nbody {\n    height: 100vh;\n    width: 100vw;\n}\n\n.visualiser {\n    height: 80vw;\n    width: 80vw;\n    margin: 20px auto;\n    display: flex;\n    flex-flow: row wrap;\n}\n\n.node {\n    background-color: blue;\n    border: 1px solid black;\n    padding: 0;\n    margin: 0;\n}\n\n.weighted-node {\n    background-image: url('/03aeba325643f5147cf98b926fab787d.png');\n    background-repeat: no-repeat;\n    background-position: center;\n    background-size: 70%;\n}\n\n.wall-node {\n    background-color: black;\n    border-color: lightseagreen;\n}\n",
+    "js": "var reloadCSS = require('_css_loader');\n\nmodule.hot.dispose(reloadCSS);\nmodule.hot.accept(reloadCSS);"
+  },
+  "sourceMaps": {
+    "css": {
+      "mappings": [
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 1, "column": 0 },
+          "generated": { "line": 1, "column": 0 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 2, "column": 4 },
+          "generated": { "line": 2, "column": 4 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 2, "column": 26 },
+          "generated": { "line": 2, "column": 26 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 3, "column": 0 },
+          "generated": { "line": 3, "column": 0 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 5, "column": 0 },
+          "generated": { "line": 5, "column": 0 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 7, "column": 4 },
+          "generated": { "line": 7, "column": 4 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 7, "column": 13 },
+          "generated": { "line": 7, "column": 13 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 8, "column": 4 },
+          "generated": { "line": 8, "column": 4 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 8, "column": 14 },
+          "generated": { "line": 8, "column": 14 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 9, "column": 4 },
+          "generated": { "line": 9, "column": 4 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 9, "column": 19 },
+          "generated": { "line": 9, "column": 19 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 10, "column": 0 },
+          "generated": { "line": 10, "column": 0 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 12, "column": 0 },
+          "generated": { "line": 12, "column": 0 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 13, "column": 4 },
+          "generated": { "line": 13, "column": 4 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 13, "column": 17 },
+          "generated": { "line": 13, "column": 17 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 14, "column": 4 },
+          "generated": { "line": 14, "column": 4 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 14, "column": 16 },
+          "generated": { "line": 14, "column": 16 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 15, "column": 0 },
+          "generated": { "line": 15, "column": 0 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 17, "column": 0 },
+          "generated": { "line": 17, "column": 0 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 18, "column": 4 },
+          "generated": { "line": 18, "column": 4 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 18, "column": 16 },
+          "generated": { "line": 18, "column": 16 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 19, "column": 4 },
+          "generated": { "line": 19, "column": 4 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 19, "column": 15 },
+          "generated": { "line": 19, "column": 15 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 20, "column": 4 },
+          "generated": { "line": 20, "column": 4 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 20, "column": 21 },
+          "generated": { "line": 20, "column": 21 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 21, "column": 4 },
+          "generated": { "line": 21, "column": 4 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 21, "column": 17 },
+          "generated": { "line": 21, "column": 17 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 22, "column": 4 },
+          "generated": { "line": 22, "column": 4 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 22, "column": 23 },
+          "generated": { "line": 22, "column": 23 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 23, "column": 0 },
+          "generated": { "line": 23, "column": 0 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 25, "column": 0 },
+          "generated": { "line": 25, "column": 0 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 26, "column": 4 },
+          "generated": { "line": 26, "column": 4 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 26, "column": 26 },
+          "generated": { "line": 26, "column": 26 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 27, "column": 4 },
+          "generated": { "line": 27, "column": 4 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 27, "column": 27 },
+          "generated": { "line": 27, "column": 27 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 28, "column": 4 },
+          "generated": { "line": 28, "column": 4 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 28, "column": 14 },
+          "generated": { "line": 28, "column": 14 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 29, "column": 4 },
+          "generated": { "line": 29, "column": 4 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 29, "column": 13 },
+          "generated": { "line": 29, "column": 13 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 30, "column": 0 },
+          "generated": { "line": 30, "column": 0 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 32, "column": 0 },
+          "generated": { "line": 32, "column": 0 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 33, "column": 4 },
+          "generated": { "line": 33, "column": 4 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 33, "column": 39 },
+          "generated": { "line": 33, "column": 66 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 34, "column": 4 },
+          "generated": { "line": 34, "column": 4 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 34, "column": 32 },
+          "generated": { "line": 34, "column": 32 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 35, "column": 4 },
+          "generated": { "line": 35, "column": 4 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 35, "column": 31 },
+          "generated": { "line": 35, "column": 31 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 36, "column": 4 },
+          "generated": { "line": 36, "column": 4 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 36, "column": 24 },
+          "generated": { "line": 36, "column": 24 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 37, "column": 0 },
+          "generated": { "line": 37, "column": 0 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 39, "column": 0 },
+          "generated": { "line": 39, "column": 0 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 40, "column": 4 },
+          "generated": { "line": 40, "column": 4 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 40, "column": 27 },
+          "generated": { "line": 40, "column": 27 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 41, "column": 4 },
+          "generated": { "line": 41, "column": 4 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 41, "column": 31 },
+          "generated": { "line": 41, "column": 31 }
+        },
+        {
+          "source": "style.css",
+          "name": null,
+          "original": { "line": 42, "column": 0 },
+          "generated": { "line": 42, "column": 0 }
+        }
+      ],
+      "sources": {
+        "style.css": "* {\n    box-sizing: border-box;\n}\n\nhtml,\nbody {\n    margin: 0;\n    padding: 0;\n    font-size: 10px;\n}\n\nbody {\n    height: 100vh;\n    width: 100vw;\n}\n\n.visualiser {\n    height: 80vw;\n    width: 80vw;\n    margin: 20px auto;\n    display: flex;\n    flex-flow: row wrap;\n}\n\n.node {\n    background-color: blue;\n    border: 1px solid black;\n    padding: 0;\n    margin: 0;\n}\n\n.weighted-node {\n    background-image: url('anchor.png');\n    background-repeat: no-repeat;\n    background-position: center;\n    background-size: 70%;\n}\n\n.wall-node {\n    background-color: black;\n    border-color: lightseagreen;\n}\n"
+      },
+      "lineCount": null
+    }
+  },
+  "error": null,
+  "hash": "13721ada5bb65f1ba9ebb5c6c6ad2ffd",
+  "cacheData": { "env": {} }
+}

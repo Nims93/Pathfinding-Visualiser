@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Structure Visulaliser</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <script type="module" src="./modules/heap.js"></script>
+    <script type="module" src="./index.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <div class="menu">
+        <h1>Pathfinding Visualiser</h1>
+        <div class="range-input-container">
+          <label for="grid-size-slider">Choose grid size</label>
+          <input
+            type="range"
+            min="10"
+            max="60"
+            step="10"
+            value="40"
+            id="grid-size-slider"
+          />
+        </div>
+        <div class="dropdown-hover" id="maze-gen-dropdown">
+          <p>Maze Generation algorithms</p>
+          <ul class="dropdown-menu-ul">
+            <li><Button value="backtracker" id="recursive-backtracker">Recursive Backtracker</Button></li>
+            <li><button value="division" id="recursive-division">Recursive Division</button></li>
+            <li><button value="random" id="random-walls">Random Walls</button></li>
+          </ul>
+        </div>
+        <div class="dropdown-hover" id="pathfinding-dropdown">
+          <p>Pathfinding Algorithms</p>
+          <ul class="dropdown-menu-ul">
+            <li><button value="a*" id="a-star">A*</button></li>
+            <li><button value="gbfs" id="gbfs">Greedy BFS</button></li>
+            <li><button value="bdbfs" id="bdbfs">Bi-Directional BFS</button></li>
+            <li><button value="bfs" id="bfs">Breadth First Search</button></li>
+            <li><button value="dfs" id="dfs">Depth First Search</button></li>
+            
+          </ul>
+        </div>
+        <button value="instant" type="button" id="animation-speed">Animation Speed: None</button>
+        <button id="clear-board">Clear Board</button>
+      </div>
+      <div class="legend">
+        <ul class="legend-items">
+          li.
+        </ul>
+      </div>
+    </header>
+    <main class="visulaiser-wrapper">
+      <!-- <div class="menu">
+        <h1>Pathfinding Visualiser</h1>
+        <div class="range-input-container">
+          <label for="grid-size-slider">Choose grid size</label>
+          <input
+            type="range"
+            min="10"
+            max="60"
+            step="10"
+            value="40"
+            id="grid-size-slider"
+          />
+        </div>
+        <div class="dropdown-hover" id="maze-gen-dropdown">
+          <p>Maze Generation algorithms</p>
+          <ul class="dropdown-menu-ul">
+            <li><Button value="backtracker" id="recursive-backtracker">Recursive Backtracker</Button></li>
+            <li><button value="division" id="recursive-division">Recursive Division</button></li>
+            <li><button value="random" id="random-walls">Random Walls</button></li>
+          </ul>
+        </div>
+        <div class="dropdown-hover" id="pathfinding-dropdown">
+          <p>Pathfinding Algorithms</p>
+          <ul class="dropdown-menu-ul">
+            <li><button value="a*" id="a-star">A*</button></li>
+            <li><button value="gbfs" id="gbfs">Greedy BFS</button></li>
+            <li><button value="bdbfs" id="bdbfs">Bi-Directional BFS</button></li>
+            <li><button value="bfs" id="bfs">Breadth First Search</button></li>
+            <li><button value="dfs" id="dfs">Depth First Search</button></li>
+            
+          </ul>
+        </div>
+        <button value="instant" type="button" id="animation-speed">Animation Speed: None</button>
+        <button id="clear-board">Clear Board</button>
+      </div> -->
+      <div class="visualiser"></div>
+    </main>
+  </body>
+</html>
