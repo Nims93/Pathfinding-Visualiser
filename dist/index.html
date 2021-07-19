@@ -1,32 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Data Structure Visulaliser</title>
-    <link href="/style.e308ff8e.css" rel="stylesheet" type="text/css" />
-    <script src="/data-structure-visualiser.e31bb0bc.js" defer=""></script>
-    <script src="/style.e308ff8e.js"></script>
-  </head>
-  <body>
-    <main class="visulaiser-wrapper">
-      <div class="menu">
-        <div class="range-input-container">
-          <label for="grid-size">Choose grid size</label>
-          <input
-            type="range"
-            min="10"
-            max="40"
-            step="5"
-            value="25"
-            id="grid-size-slider"
-          />
-          <output class="grid-size-output" for="grid-size">500</output>
-          <button value="0" type="button" id="demo-button">Demo</button>
-        </div>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Structure Visulaliser</title>
+  <link href="/styles.b61e60ae.css" rel="stylesheet" type="text/css">
+  <script type="module" src="/heap.7e41f233.js"></script>
+  <script type="module" src="/src.e31bb0bc.js" defer=""></script>
+<script src="/styles.b61e60ae.js"></script></head>
+
+<body>
+  <header>
+    <div id="controls-menu">
+      <h1>Pathfinding Visualiser</h1>
+      <div class="range-input-container">
+        <label for="grid-size-slider">Grid Size</label>
+        <input type="range" min="10" max="60" step="10" value="40" id="grid-size-slider">
       </div>
-      <div class="visualiser"></div>
-    </main>
-  </body>
+      <div class="dropdown-container" id="maze-dropdown">
+        <p>Mazes</p>
+        <ul class="dropdown-menu-ul">
+          <li><Button value="backtracker" id="recursive-backtracker">Recursive Backtracker</Button></li>
+          <li><button value="division" id="recursive-division">Recursive Division</button></li>
+          <li><button value="random" id="random-walls">Random Walls</button></li>
+        </ul>
+      </div>
+      <div class="dropdown-container" id="pathfinding-dropdown">
+        <p>Algorithms</p>
+        <ul class="dropdown-menu-ul">
+          <li><button value="a*" id="a-star">A*</button></li>
+          <li><button value="gbfs" id="gbfs">Greedy BFS</button></li>
+          <li><button value="bdbfs" id="bdbfs">Bi-Directional BFS</button></li>
+          <li><button value="bfs" id="bfs">Breadth First Search</button></li>
+          <li><button value="dfs" id="dfs">Depth First Search</button></li>
+
+        </ul>
+      </div>
+      <button value="instant" type="button" id="animation-speed">Animation Speed: None</button>
+      <button id="clear-board">Clear Board</button>
+    </div>
+    <div class="legend">
+      <ul class="legend-items">
+        <li><span class="node"></span><span>Unvisited</span></li>
+        <li><span class="wall-node"></span><span>Wall</span></li>
+        <li><span class="start-node"></span><span>Start</span></li>
+        <li><span class="end-node"></span><span>End</span></li>
+        <li><span class="visited"></span><span>Visited</span></li>
+        <li><span class="path-node"></span><span>Path</span></li>
+      </ul>
+    </div>
+  </header>
+  <main class="visulaiser-wrapper">
+
+    <div class="visualiser"></div>
+  </main>
+</body>
+
 </html>

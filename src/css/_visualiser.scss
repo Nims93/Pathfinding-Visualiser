@@ -1,0 +1,73 @@
+@import './variables';
+
+:root {
+    --visualiserWidth: 95vw;
+}
+
+.visualiser {
+    height: calc(var(--visualiserWidth) * 0.45);
+    width: var(--visualiserWidth);
+    margin: 0 auto;
+    background-color: $wallColor;
+    font-size: 0;
+    position: relative;
+
+    div {
+        display: inline-block;
+    }
+}
+
+.node {
+    background-color: hsl(0, 0%, 100%);
+    border: 1px solid hsl(233, 100%, 5%);
+    padding: 0;
+    margin: 0;
+    // animation-name: remove-wall;
+    // animation-duration: 1s;
+}
+
+.visited {
+    background-color: rgb(87, 160, 228);
+    // animation-name: visited;
+    // animation-duration: .5s;
+}
+
+.path-node {
+    background-color: hsla(46, 70%, 60%, 0.842);
+}
+
+.wall-node {
+    background-color: $wallColor;
+    border-color: rgb(65, 68, 68);
+    // animation-name: wall;
+    // animation-duration: .5s;
+    // background-color: red;
+}
+
+.start-node {
+    background-color: rgb(201, 0, 0);
+}
+
+.end-node {
+    /* background-color: rgb(38, 226, 0); */
+    background-image: url('../checkered-flag.png');
+    background-repeat: no-repeat;
+    background-size: 80%;
+    background-position: center;
+}
+
+@keyframes wall {
+    75% {transform: scale(1.25)}
+    100% {background-color: $wallColor}
+}
+
+@keyframes visited {
+    0% {transform: scale(.2)}
+    25% {border-radius: 50%; background-color:hsl(281, 53%, 24%)}
+    70% {transform: scale(1.2)}
+}
+
+@keyframes remove-wall {
+    75% {transform: scale(1.25)}
+    100% {background-color: hsl(0, 0%, 100%)}
+}

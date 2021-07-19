@@ -1,0 +1,35 @@
+.legend {
+    margin: 0;
+    width: 100%;
+    top: -1em;
+
+    ul {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        li {
+            margin: 0 2em;
+            position: relative;
+            list-style-type: none;
+
+            span:first-child {
+                height: 4em;
+                width: 4em;
+                position: relative;
+                display: inline-block;
+                border: 1px solid black;
+            }
+
+            span:last-child {
+                font-size: 1.5em;
+                display: inline-block;
+                margin-left: 1em;
+                position: relative;
+                bottom: 12px;
+                color: black;
+                font-weight: bold;
+            }
+        }
+    }
+}

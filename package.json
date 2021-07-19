@@ -1,13 +1,18 @@
 {
-  "name": "data-structure-visualiser",
+  "name": "pathfinding-visualiser",
   "version": "1.0.0",
   "description": "Vanilla javasript project to grasp data sctructures and algos",
-  "main": "index.js",
+  "main": "./src/index.js",
   "author": "Kieran Cyprien",
   "license": "MIT",
   "dependencies": {
-    "babel-eslint": "^10.1.0",
-    "parcel-bundler": "^1.10.3",
-    "prettier": "^2.3.1"
+    "eslint": "^7.30.0"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.5"
+  },
+  "scripts": {
+    "dev": "parcel ./src/index.html",
+    "build": "parcel build ./src/index.html"
   }
 }

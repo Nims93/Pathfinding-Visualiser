@@ -1,0 +1,8 @@
+$theme: hsla(0, 0%, 19%, 0.93);
+$highlightColor: rgb(77, 145, 247);
+$textColor: white;
+$visualiserWidth: 95vw;
+
+@import './controlsMenu';
+@import './legend';
+@import './visualiser';
