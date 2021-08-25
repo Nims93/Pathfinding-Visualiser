@@ -1,32 +1,14 @@
-* {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-}
-
-html {
-  margin: 0;
-  padding: 0;
-  font-size: 10px;
-  color: white;
-}
-
-body {
-  height: 100vh;
-  width: 100vw;
-  margin: 0;
-  font-family: 'Lato', Helvetica, Arial, sans-serif;
-  font-weight: bold;
-}
-
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
 #controls-menu {
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  height: 55px;
+  height: 45px;
   width: 100%;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -34,41 +16,85 @@ body {
   margin-bottom: 1rem;
 }
 
-#controls-menu h1 {
-  font-size: 3em;
+#controls-menu h1.title {
+  position: absolute;
+  left: 1em;
+  font-size: 2em;
   margin: 0;
+  -ms-grid-column-align: start;
+      justify-self: start;
 }
 
 #controls-menu .range-input-container {
-  position: relative;
+  margin: 0 0.2em 0 0.4em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 #controls-menu .range-input-container label[for='grid-size-slider'] {
-  font-size: 1.8em;
-  position: absolute;
-  bottom: 0.6em;
+  font-size: 1.5em;
+  bottom: 1em;
   left: 1.9em;
 }
 
 #controls-menu .range-input-container #grid-size-slider {
-  width: 10em;
-  position: relative;
+  width: 7em;
   top: 0.8em;
 }
 
-#controls-menu .dropdown-menu-ul {
+#controls-menu .dropdown-container {
+  position: relative;
+  padding: 0 0.5em;
+  margin: 0 0.2em;
+  border-radius: 4px 4px 0 0;
+  font-weight: bold;
+}
+
+#controls-menu .dropdown-container:hover {
+  background-color: #4d91f7;
+  -webkit-transition: background-color 0.5s ease;
+  transition: background-color 0.5s ease;
+}
+
+#controls-menu .dropdown-container p {
+  font-size: 1.5em;
+}
+
+#controls-menu .dropdown-container .dropdown-menu-ul {
   display: none;
   list-style: none;
   position: absolute;
-  top: 2.95em;
+  top: 3.6em;
   z-index: 3;
   padding: 0;
 }
 
+#controls-menu .dropdown-container .dropdown-menu-ul li:last-child button {
+  padding-bottom: 0.5em;
+}
+
+#controls-menu .dropdown-container .dropdown-menu-ul li button {
+  font-size: 1.2em;
+  padding: 0.5em 1em;
+  width: 100%;
+  border: none;
+  background-color: rgba(48, 48, 48, 0.93);
+  color: white;
+}
+
+#controls-menu .dropdown-container .dropdown-menu-ul li button:hover {
+  background-color: #4d91f7;
+}
+
 #controls-menu #pathfinding-dropdown ul {
-  display: none;
-  list-style: none;
-  position: absolute;
   right: -2.5em;
   width: 170%;
 }
@@ -86,42 +112,14 @@ body {
   display: block;
 }
 
-#controls-menu .dropdown-container {
-  font-size: 1.8em;
-  position: relative;
-  padding: 0.85em 1em;
-  font-weight: bold;
-}
-
-#controls-menu .dropdown-container:hover {
-  background-color: #4d91f7;
-  -webkit-transition: background-color 0.5s ease;
-  transition: background-color 0.5s ease;
-}
-
-#controls-menu .dropdown-container li:last-child button {
-  padding-bottom: 0.5em;
-}
-
-#controls-menu .dropdown-container button {
-  font-size: 0.8em;
-  padding: 0.5em 1em;
-  width: 100%;
-  border: none;
-  background-color: rgba(48, 48, 48, 0.93);
-  color: white;
-}
-
-#controls-menu .dropdown-container button:hover {
-  background-color: #4d91f7;
-}
-
 #controls-menu button {
-  font-size: 1.5em;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  font-size: 1.4em;
   font-weight: bold;
   border: none;
-  border-left: white solid;
-  border-right: white solid;
+  font-family: 'Lato', Arial, sans-serif;
   color: var(--font-color);
   background-color: var(--theme);
   height: 100%;
@@ -130,14 +128,35 @@ body {
 
 #controls-menu button:hover {
   background-color: #4d91f7;
-  -webkit-transition: background-color .4s linear;
-  transition: background-color .4s linear;
+  -webkit-transition: background-color 0.4s linear;
+  transition: background-color 0.4s linear;
+}
+
+#controls-menu #animation-speed {
+  width: 8.7em;
+  padding: 0;
+  border-radius: 4px;
+  margin: 0 0.2em;
+}
+
+#controls-menu #clear-board {
+  width: 6em;
+  padding: 0;
+  border-radius: 4px;
+  margin: 0 0.2em;
+}
+
+@media screen and (max-width: 880px) {
+  #controls-menu h1.title {
+    position: relative;
+    left: 0;
+  }
 }
 
 .legend {
   margin: 0;
   width: 100%;
-  top: -1em;
+  height: 40px;
 }
 
 .legend ul {
@@ -159,8 +178,8 @@ body {
 }
 
 .legend ul li span:first-child {
-  height: 4em;
-  width: 4em;
+  height: 3em;
+  width: 3em;
   position: relative;
   display: inline-block;
   border: 1px solid black;
@@ -169,7 +188,7 @@ body {
 .legend ul li span:last-child {
   font-size: 1.5em;
   display: inline-block;
-  margin-left: 1em;
+  margin-left: 0.5em;
   position: relative;
   bottom: 12px;
   color: black;
@@ -180,8 +199,12 @@ body {
   --visualiserWidth: 95vw;
 }
 
-.visualiser {
-  height: calc(var(--visualiserWidth) * 0.45);
+main {
+  height: calc(100vh - 105px);
+}
+
+main .visualiser {
+  height: 95%;
   width: var(--visualiserWidth);
   margin: 0 auto;
   background-color: rgba(16, 16, 25, 0.9);
@@ -189,7 +212,7 @@ body {
   position: relative;
 }
 
-.visualiser div {
+main .visualiser div {
   display: inline-block;
 }
 
@@ -201,7 +224,7 @@ body {
 }
 
 .visited {
-  background-color: #57a0e4;
+  background-color: #58a0e4;
 }
 
 .path-node {
@@ -214,12 +237,16 @@ body {
 }
 
 .start-node {
-  background-color: #c90000;
+  background-color: #00ad6b;
+  background-image: url("../checkered-flag.png");
+  background-size: 80%;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .end-node {
-  /* background-color: rgb(38, 226, 0); */
-  background-image: url("../checkered-flag.png");
+  background-color: #f84f4f;
+  background-image: url("./../vinyl.svg");
   background-repeat: no-repeat;
   background-size: 80%;
   background-position: center;
@@ -293,5 +320,25 @@ body {
   100% {
     background-color: white;
   }
+}
+
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+:root {
+  margin: 0;
+  padding: 0;
+  font-size: 10px;
+  color: white;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  font-family: 'Lato', Arial, sans-serif;
+  font-weight: bold;
 }
 /*# sourceMappingURL=styles.css.map */

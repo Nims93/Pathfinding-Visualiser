@@ -1,109 +1,72 @@
 @import './variables';
 
-* {
-  box-sizing: border-box;
-}
-
-html {
-  margin: 0;
-  padding: 0;
-  font-size: 10px;
-  color: $textColor;
-}
-
-body {
-  height: 100vh;
-  width: 100vw;
-  margin: 0;
-  font-family: 'Lato', Helvetica, Arial, sans-serif;
-  font-weight: bold;
-}
-
 #controls-menu {
   position: relative;
   display: flex;
-  height: 55px;
+  height: 45px;
   width: 100%;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   background-color: $theme;
   margin-bottom: 1rem;
 
-  h1 {
-      font-size: 3em;
-      margin: 0;
+  h1.title {
+    position: absolute;
+    left: 1em;
+    font-size: 2em;
+    margin: 0;
+    justify-self: start;
   }
 
   .range-input-container {
-      position: relative;
+    margin: 0 0.2em 0 0.4em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-      label[for='grid-size-slider'] {
-          font-size: 1.8em;
-          position: absolute;
-          bottom: 0.6em;
-          left: 1.9em;
-      }
-      #grid-size-slider {
-          width: 10em;
-          position: relative;
-          top: 0.8em;
-      }
-  }
-
-  .dropdown-menu-ul {
-      display: none;
-      list-style: none;
-      position: absolute;
-      top: 2.95em;
-      z-index: 3;
-      padding: 0;
-  }
-
-  #pathfinding-dropdown {
-      ul {
-          display: none;
-          list-style: none;
-          position: absolute;
-          right: -2.5em;
-          width: 170%;
-      }
-      &:hover {
-          ul {
-              display: block;
-          }
-      }
-  }
-
-  #maze-dropdown {
-      ul {
-          width: 250%;
-          left: -3.5em;
-      }
-      &:hover {
-          ul {
-              display: block;
-          }
-      }
+    label[for='grid-size-slider'] {
+      font-size: 1.5em;
+      //   position: absolute;
+      bottom: 1em;
+      left: 1.9em;
+    }
+    #grid-size-slider {
+      width: 7em;
+      //   position: relative;
+      top: 0.8em;
+    }
   }
 
   .dropdown-container {
-      font-size: 1.8em;
-      position: relative;
-      padding: 0.85em 1em;
-      font-weight: bold;
-      &:hover {
-          background-color: $highlightColor;
-          transition: background-color 0.5s ease;
-      }
+    position: relative;
+    padding: 0 0.5em;
+    margin: 0 0.2em;
+    border-radius: 4px 4px 0 0;
+    font-weight: bold;
+    &:hover {
+      background-color: $highlightColor;
+      transition: background-color 0.5s ease;
+    }
+
+    p {
+      font-size: 1.5em;
+    }
+
+    .dropdown-menu-ul {
+      display: none;
+      list-style: none;
+      position: absolute;
+      top: 3.6em;
+      z-index: 3;
+      padding: 0;
 
       li {
-          &:last-child button {
-              padding-bottom: 0.5em;
-          }
-      }
+        &:last-child button {
+          padding-bottom: 0.5em;
+        }
 
-      button {
-          font-size: 0.8em;
+        button {
+          font-size: 1.2em;
           padding: 0.5em 1em;
           width: 100%;
           border: none;
@@ -111,25 +74,75 @@ body {
           color: $textColor;
 
           &:hover {
-              background-color: $highlightColor;
+            background-color: $highlightColor;
           }
+        }
       }
+    }
   }
-    // applies to immediate children and nested button in unordered lists
-   button {
-      font-size: 1.5em;
-      font-weight: bold;
-      border: none;
-      border-left: white solid;
-      border-right: white solid;
-      color: var(--font-color);
-      background-color: var(--theme);
-      height: 100%;
-      width: 13em;
 
-      &:hover {
-          background-color: $highlightColor;
-          transition: background-color .4s linear;
+  #pathfinding-dropdown {
+    ul {
+      right: -2.5em;
+      width: 170%;
+    }
+    &:hover {
+      ul {
+        display: block;
       }
+    }
+  }
+
+  #maze-dropdown {
+    ul {
+      width: 250%;
+      left: -3.5em;
+    }
+    &:hover {
+      ul {
+        display: block;
+      }
+    }
+  }
+
+  // applies to immediate children and nested button in unordered lists
+  button {
+    appearance: none;
+    font-size: 1.4em;
+    font-weight: bold;
+    border: none;
+    font-family: 'Lato', Arial, sans-serif;
+    color: var(--font-color);
+    background-color: var(--theme);
+    height: 100%;
+    width: 13em;
+
+    &:hover {
+      background-color: $highlightColor;
+      transition: background-color 0.4s linear;
+    }
+  }
+
+  #animation-speed {
+    width: 8.7em;
+    padding: 0;
+    border-radius: 4px;
+    margin: 0 0.2em;
+  }
+
+  #clear-board {
+    width: 6em;
+    padding: 0;
+    border-radius: 4px;
+    margin: 0 0.2em;
+  }
+}
+
+@media screen and (max-width: 880px) {
+  #controls-menu {
+    h1.title {
+      position: relative;
+      left: 0;
+    }
   }
 }
