@@ -277,18 +277,8 @@ function handleMousedown(e) {
     }
   }
 }
-/* function findPathOnStartOrEndMove(e) {
-  const isStartOrEndNode =
-    e.target.classList.contains('start-node') ||
-    e.target.classList.contains('end-node');
 
-  if ()
-} */
-
-gridWrapper.addEventListener('mouseover', (e) => {
-  handleMouseover(e);
-  findPathOnStartOrEndMove(e);
-});
+gridWrapper.addEventListener('mouseover', handleMouseover);
 
 function handleMouseover(e) {
   if (!e.target.classList.contains('visualiser') && grid.canMutate) {
@@ -314,6 +304,9 @@ function handleMouseover(e) {
         grid[gridCoords[0]][gridCoords[1]].isWall = false;
 
         prevEle = DOMEle;
+
+        if (grid.previousAlgo)
+          findPathOnStartOrEndNodeMouseMove(grid.previousAlgo);
       } else if (e.buttons === 1 && prevEle.classList.contains('end-node')) {
         prevEle.classList.remove('end-node');
         const prevGridCoords = prevEle.id.split('-');
@@ -329,6 +322,9 @@ function handleMouseover(e) {
         grid[gridCoords[0]][gridCoords[1]].isWall = false;
 
         prevEle = DOMEle;
+
+        if (grid.previousAlgo)
+          findPathOnStartOrEndNodeMouseMove(grid.previousAlgo);
       } else if (e.buttons === 1 && isWall && !isStart && !isEnd) {
         gridWrapper
           .querySelector(`div[id="${DOMEle.id}"]`)
@@ -345,6 +341,39 @@ function handleMouseover(e) {
         prevEle = DOMEle;
       }
     }
+  }
+}
+
+function findPathOnStartOrEndNodeMouseMove(value) {
+  if (grid.canMutate) {
+    const prevAnimationSpeed = grid.animationSpeed;
+    grid.animationSpeed = 0;
+    switch (value) {
+      case 'a*':
+        clearVisited();
+        aStar();
+        break;
+      case 'dfs':
+        clearVisited();
+        depthFirstSearch();
+        break;
+      case 'bfs':
+        clearVisited();
+        breadthFirstSearch();
+        break;
+      case 'gbfs':
+        clearVisited();
+        greedyBreadthFirstSearch();
+        break;
+      case 'bdbfs':
+        clearVisited();
+        biDirectionalBreadthFirstSearch();
+        break;
+
+      default:
+        return;
+    }
+    grid.animationSpeed = prevAnimationSpeed;
   }
 }
 
