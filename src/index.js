@@ -4,7 +4,8 @@ import { MinHeap } from './modules/heap.js';
 //internal representation of the data
 let grid = [];
 grid.animationSpeed = 5;
-grid.inUse = false;
+grid.canMutate = true;
+grid.previousAlgo = null;
 
 const gridSizeSlider = document.querySelector('#grid-size-slider');
 const gridWrapper = document.querySelector('.visualiser');
@@ -92,65 +93,82 @@ HTMLElement.prototype.empty = function () {
 //---------------
 
 //initialise grid
+grid.canMutate = false;
 createGrid(parseInt(gridSizeSlider.value), gridWrapper);
 setStartEndNodes();
+grid.canMutate = true;
 
 //update grid and populte dom with divs as range slider is updated and on page load
 gridSizeSlider.addEventListener('input', handleGridSizeInputSlider);
 
 function handleGridSizeInputSlider() {
-  grid.length = 0;
-  gridWrapper.empty();
-  createGrid(Number(gridSizeSlider.value), gridWrapper);
-  setStartEndNodes();
+  if (grid.canMutate) {
+    grid.canMutate = false;
+    grid.length = 0;
+    gridWrapper.empty();
+    createGrid(Number(gridSizeSlider.value), gridWrapper);
+    setStartEndNodes();
+    grid.canMutate = true;
+  }
 }
 
 window.addEventListener('resize', handleGridSizeInputSlider);
 
 pathfindingDropdownBtn.addEventListener('click', (e) => {
-  switch (e.target.value) {
-    case 'a*':
-      clearVisited();
-      aStar();
-      break;
-    case 'dfs':
-      clearVisited();
-      depthFirstSearch();
-      break;
-    case 'bfs':
-      clearVisited();
-      breadthFirstSearch();
-      break;
-    case 'gbfs':
-      clearVisited();
-      greedyBreadthFirstSearch();
-      break;
-    case 'bdbfs':
-      clearVisited();
-      biDirectionalBreadthFirstSearch();
-      break;
+  if (grid.canMutate) {
+    grid.canMutate = false;
+    switch (e.target.value) {
+      case 'a*':
+        grid.previousAlgo = 'a*';
+        clearVisited();
+        aStar();
+        break;
+      case 'dfs':
+        grid.previousAlgo = 'dfs';
+        clearVisited();
+        depthFirstSearch();
+        break;
+      case 'bfs':
+        grid.previousAlgo = 'bfs';
+        clearVisited();
+        breadthFirstSearch();
+        break;
+      case 'gbfs':
+        grid.previousAlgo = 'gbfs';
+        clearVisited();
+        greedyBreadthFirstSearch();
+        break;
+      case 'bdbfs':
+        grid.previousAlgo = 'bdbfs';
+        clearVisited();
+        biDirectionalBreadthFirstSearch();
+        break;
 
-    default:
-      return;
+      default:
+        return;
+    }
   }
 });
 
 mazeGenDroptdownBtn.addEventListener('click', (e) => {
-  switch (e.target.id) {
-    case 'recursive-backtracker':
-      clearBoard();
-      generateMazeRecursiveBacktracker(5, 5);
-      break;
-    case 'recursive-division':
-      clearBoard();
-      generateWallsRecursiveDivision();
-      break;
-    case 'random-walls':
-      clearBoard();
-      generateWallsRandom();
-      break;
-    default:
-      return;
+  if (grid.canMutate) {
+    grid.canMutate = false;
+    switch (e.target.id) {
+      case 'recursive-backtracker':
+        clearBoard();
+        generateMazeRecursiveBacktracker(5, 5);
+        break;
+      case 'recursive-division':
+        clearBoard();
+        generateWallsRecursiveDivision();
+        break;
+      case 'random-walls':
+        clearBoard();
+        generateWallsRandom();
+        break;
+      default:
+        return;
+    }
   }
 });
 
@@ -179,7 +197,12 @@ animationSpeedBtn.addEventListener('click', (e) => {
   }
 });
 
-clearBtn.addEventListener('click', clearBoard);
+clearBtn.addEventListener('click', () => {
+  if (grid.canMutate) {
+    grid.previousAlgo = null;
+    clearBoard();
+  }
+});
 
 function clearBoard() {
   grid.map((row) =>
@@ -227,7 +250,7 @@ gridWrapper.addEventListener('mousedown', handleMousedown);
 
 function handleMousedown(e) {
   e.preventDefault();
-  if (!e.target.classList.contains('visualiser')) {
+  if (!e.target.classList.contains('visualiser') && grid.canMutate) {
     const DOMEle = e.target;
     const isWall = e.target.classList.contains('wall-node');
     const isStart = e.target.classList.contains('start-node');
@@ -254,11 +277,21 @@ function handleMousedown(e) {
     }
   }
 }
+/* function findPathOnStartOrEndMove(e) {
+  const isStartOrEndNode =
+    e.target.classList.contains('start-node') ||
+    e.target.classList.contains('end-node');
 
-gridWrapper.addEventListener('mouseover', handleMouseover);
+  if ()
+} */
+
+gridWrapper.addEventListener('mouseover', (e) => {
+  handleMouseover(e);
+  findPathOnStartOrEndMove(e);
+});
 
 function handleMouseover(e) {
-  if (!e.target.classList.contains('visualiser')) {
+  if (!e.target.classList.contains('visualiser') && grid.canMutate) {
     const DOMEle = e.target;
     const isWall = e.target.classList.contains('wall-node');
     const isStart = e.target.classList.contains('start-node');
@@ -321,8 +354,6 @@ function handleMouseover(e) {
 //
 //---------------------------------------------
 
-/*  */
-
 function animateNodes(nodesArray) {
   const removeWallAnimation = [
     { transform: 'scale(1.2)', offset: 0.75 },
@@ -355,7 +386,6 @@ function animateNodes(nodesArray) {
 
     if (typeof currentNode === 'string') {
       nodeTypeToAnimate = currentNode;
-      console.log(nodeTypeToAnimate);
       continue;
     }
 
@@ -365,6 +395,7 @@ function animateNodes(nodesArray) {
         currentNode.DOMRef.classList.add('wall-node');
         if (speed !== 0) {
           currentNode.DOMRef.animate(wallAnimation, 400);
+          if (i === nodesArray.length - 1) grid.canMutate = true;
         }
       }, speed * i);
     } else if (nodeTypeToAnimate === 'remove wall') {
@@ -373,6 +404,7 @@ function animateNodes(nodesArray) {
         currentNode.DOMRef.classList.remove('wall-node');
         if (speed !== 0) {
           currentNode.DOMRef.animate(removeWallAnimation, 400);
+          if (i === nodesArray.length - 1) grid.canMutate = true;
         }
       }, speed * i);
     } else if (nodeTypeToAnimate === 'visited') {
@@ -380,21 +412,23 @@ function animateNodes(nodesArray) {
         currentNode.visited = true;
         currentNode.DOMRef.classList.add('visited');
         if (speed !== 0) {
-          currentNode.DOMRef.animate(visitedAnimation, 400);
+          currentNode.DOMRef.animate(visitedAnimation, 500);
+          if (i === nodesArray.length - 1 && !nodesArray.includes('path')) {
+            grid.canMutate = true;
+          }
         }
       }, speed * i);
     } else if (nodeTypeToAnimate === 'path') {
       setTimeout(() => {
         currentNode.DOMRef.classList.add('path-node');
         if (speed !== 0) {
-          currentNode.DOMRef.animate(pathAnimation, 400);
+          currentNode.DOMRef.animate(pathAnimation, 500);
+          if (i === nodesArray.length - 1) grid.canMutate = true;
         }
       }, speed * i);
     }
   }
 }
-
-//remove wall / add wall / visited / path
 
 function randInt(max, min = 0) {
   return Math.floor(Math.random() * (max - min + 1) + min);
@@ -842,6 +876,8 @@ function depthFirstSearch() {
         prev,
         startNode
       ).unshift('path');
+      console.log(currentNode, prev, startNode);
+      console.log(shortestPath);
       animateNodes(visitedNodesToDisplay.concat(shortestPath));
       return;
     }
