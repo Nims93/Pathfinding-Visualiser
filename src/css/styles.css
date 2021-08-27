@@ -23,6 +23,7 @@
   margin: 0;
   -ms-grid-column-align: start;
       justify-self: start;
+  cursor: default;
 }
 
 #controls-menu .range-input-container {
@@ -53,26 +54,30 @@
 #controls-menu .dropdown-container {
   position: relative;
   padding: 0 0.5em;
+  height: 100%;
   margin: 0 0.2em;
   border-radius: 4px 4px 0 0;
   font-weight: bold;
+  -webkit-transition: background-color 0.4s ease;
+  transition: background-color 0.4s ease;
 }
 
 #controls-menu .dropdown-container:hover {
   background-color: #4d91f7;
-  -webkit-transition: background-color 0.5s ease;
-  transition: background-color 0.5s ease;
+  -webkit-transition: background-color 0.4s linear;
+  transition: background-color 0.4s linear;
 }
 
 #controls-menu .dropdown-container p {
   font-size: 1.5em;
+  cursor: default;
 }
 
 #controls-menu .dropdown-container .dropdown-menu-ul {
   display: none;
   list-style: none;
   position: absolute;
-  top: 3.6em;
+  top: 3.5em;
   z-index: 3;
   padding: 0;
 }
@@ -85,13 +90,22 @@
   font-size: 1.2em;
   padding: 0.5em 1em;
   width: 100%;
-  border: none;
+  border: 1px solid rgba(48, 48, 48, 0.93);
   background-color: rgba(48, 48, 48, 0.93);
   color: white;
 }
 
 #controls-menu .dropdown-container .dropdown-menu-ul li button:hover {
   background-color: #4d91f7;
+}
+
+#controls-menu .dropdown-container .dropdown-menu-ul li button:active {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background-color: #044fc0;
+  -webkit-transition: none;
+  transition: none;
+  border: 1px solid black;
 }
 
 #controls-menu #pathfinding-dropdown ul {
@@ -128,8 +142,15 @@
 
 #controls-menu button:hover {
   background-color: #4d91f7;
-  -webkit-transition: background-color 0.4s linear;
-  transition: background-color 0.4s linear;
+  -webkit-transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease;
+}
+
+#controls-menu button:active {
+  background-color: #044fc0;
+  -webkit-transition: none;
+  transition: none;
+  border: 1px solid black;
 }
 
 #controls-menu #animation-speed {
@@ -209,6 +230,8 @@ main .visualiser {
   margin: 0 auto;
   background-color: rgba(16, 16, 25, 0.9);
   font-size: 0;
+  line-height: 0;
+  border: 1px solid #6e7272;
   position: relative;
 }
 
@@ -218,7 +241,7 @@ main .visualiser div {
 
 .node {
   background-color: white;
-  border: 1px solid #00031a;
+  border: 1px solid #6e7272;
   padding: 0;
   margin: 0;
 }
@@ -233,7 +256,7 @@ main .visualiser div {
 
 .wall-node {
   background-color: rgba(16, 16, 25, 0.9);
-  border-color: #414444;
+  border-color: #6e7272;
 }
 
 .start-node {

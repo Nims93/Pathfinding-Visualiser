@@ -16,6 +16,7 @@
     font-size: 2em;
     margin: 0;
     justify-self: start;
+    cursor: default;
   }
 
   .range-input-container {
@@ -40,23 +41,26 @@
   .dropdown-container {
     position: relative;
     padding: 0 0.5em;
+    height: 100%;
     margin: 0 0.2em;
     border-radius: 4px 4px 0 0;
     font-weight: bold;
+    transition: background-color 0.4s ease;
     &:hover {
       background-color: $highlightColor;
-      transition: background-color 0.5s ease;
+      transition: background-color 0.4s linear;
     }
 
     p {
       font-size: 1.5em;
+      cursor: default;
     }
 
     .dropdown-menu-ul {
       display: none;
       list-style: none;
       position: absolute;
-      top: 3.6em;
+      top: 3.5em;
       z-index: 3;
       padding: 0;
 
@@ -69,12 +73,19 @@
           font-size: 1.2em;
           padding: 0.5em 1em;
           width: 100%;
-          border: none;
+          border: 1px solid $theme;
           background-color: $theme;
           color: $textColor;
 
           &:hover {
-            background-color: $highlightColor;
+            background-color: rgb(77, 145, 247);
+          }
+
+          &:active {
+            box-sizing: border-box;
+            background-color: rgb(4, 79, 192);
+            transition: none;
+            border: 1px solid black;
           }
         }
       }
@@ -119,7 +130,13 @@
 
     &:hover {
       background-color: $highlightColor;
-      transition: background-color 0.4s linear;
+      transition: background-color 0.3s ease;
+    }
+
+    &:active {
+      background-color: rgb(4, 79, 192);
+      transition: none;
+      border: 1px solid black;
     }
   }
 

@@ -8,13 +8,14 @@ main {
   height: calc(100vh - 105px);
 
   .visualiser {
-    //   transform: rotate(90deg) translateX(20%);
-    //   height: calc(var(--visualiserWidth) * 0.45);
+    // box-sizing: initial;
     height: 95%;
     width: var(--visualiserWidth);
     margin: 0 auto;
     background-color: $wallColor;
     font-size: 0;
+    line-height: 0;
+    border: 1px solid hsl(180, 2%, 44%);
     position: relative;
 
     div {
@@ -25,7 +26,7 @@ main {
 
 .node {
   background-color: hsl(0, 0%, 100%);
-  border: 1px solid hsl(233, 100%, 5%);
+  border: 1px solid hsl(180, 2%, 44%);
   padding: 0;
   margin: 0;
   // animation-name: remove-wall;
@@ -44,7 +45,7 @@ main {
 
 .wall-node {
   background-color: $wallColor;
-  border-color: hsl(180, 2%, 26%);
+  border-color: hsl(180, 2%, 44%);
   // animation-name: wall;
   // animation-duration: .5s;
   // background-color: red;
