@@ -1,7 +1,6 @@
 import { MinHeap } from './modules/heap.js';
-// import 'regenerator-runtime/runtime';
 
-//internal representation of the data
+//background representation of displayed grid
 let grid = [];
 grid.animationSpeed = 5;
 grid.canMutate = true;
@@ -15,10 +14,11 @@ const animationSpeedBtn = document.querySelector('#animation-speed');
 const pathfindingDropdownBtn = document.querySelector('#pathfinding-dropdown');
 const mazeGenDroptdownBtn = document.querySelector('#maze-dropdown');
 
+//class represents each node/vertex in grid
 class Node {
   constructor(id) {
     this.id = id;
-    this.index = id.split('-').map((x) => Number(x));
+    this.index = id.split('-').map((n) => Number(n));
     this.x = [...this.index][1];
     this.y = [...this.index][0];
     this.visited = false;
@@ -86,17 +86,45 @@ HTMLElement.prototype.empty = function () {
   }
 };
 
-//---------------
+//----------------------------------------------------------
 //
-//EVENT LISTENERS
 //
-//---------------
+//EVENT LISTENERS & UI FUNCTIONS
+//
+//
+//------------------------------------------------------------
 
 //initialise grid
 grid.canMutate = false;
 createGrid(parseInt(gridSizeSlider.value), gridWrapper);
 setStartEndNodes();
 grid.canMutate = true;
+
+function createGrid(gridSize, wrapper) {
+  const wrapperWidth = wrapper.offsetWidth;
+  const wrapperHeight = wrapper.offsetHeight;
+
+  const gridWidth = gridSize;
+  const gridHeight = Math.round(gridSize * 0.45);
+
+  const divWidth = (wrapperWidth / gridWidth).toFixed(3);
+  const divHeight = (wrapperHeight / gridHeight).toFixed(3);
+
+  for (let y = 0; y < gridHeight; y++) {
+    grid.push(new Array());
+    for (let x = 0; x < gridWidth; x++) {
+      const div = document.createElement('div');
+      div.classList.add('node');
+      div.setAttribute('id', y + '-' + x);
+      div.style.width = divWidth + 'px';
+      div.style.height = divHeight + 'px';
+      wrapper.append(div);
+
+      grid[y].push(new Node(`${y}-${x}`));
+      grid[y][x].DOMRef = div;
+    }
+  }
+}
 
 //update grid and populte dom with divs as range slider is updated and on page load
 gridSizeSlider.addEventListener('input', handleGridSizeInputSlider);
@@ -106,7 +134,7 @@ function handleGridSizeInputSlider() {
     grid.canMutate = false;
     grid.length = 0;
     gridWrapper.empty();
-    createGrid(Number(gridSizeSlider.value), gridWrapper);
+    createGrid(parseInt(gridSizeSlider.value), gridWrapper);
     setStartEndNodes();
     grid.canMutate = true;
   }
@@ -306,7 +334,7 @@ function handleMouseover(e) {
         prevEle = DOMEle;
 
         if (grid.previousAlgo)
-          findPathOnStartOrEndNodeMouseMove(grid.previousAlgo);
+          findPathOnStartOrEndNodeMouseDrag(grid.previousAlgo);
       } else if (e.buttons === 1 && prevEle.classList.contains('end-node')) {
         prevEle.classList.remove('end-node');
         const prevGridCoords = prevEle.id.split('-');
@@ -324,7 +352,7 @@ function handleMouseover(e) {
         prevEle = DOMEle;
 
         if (grid.previousAlgo)
-          findPathOnStartOrEndNodeMouseMove(grid.previousAlgo);
+          findPathOnStartOrEndNodeMouseDrag(grid.previousAlgo);
       } else if (e.buttons === 1 && isWall && !isStart && !isEnd) {
         gridWrapper
           .querySelector(`div[id="${DOMEle.id}"]`)
@@ -344,7 +372,7 @@ function handleMouseover(e) {
   }
 }
 
-function findPathOnStartOrEndNodeMouseMove(value) {
+function findPathOnStartOrEndNodeMouseDrag(value) {
   if (grid.canMutate) {
     const prevAnimationSpeed = grid.animationSpeed;
     grid.animationSpeed = 0;
@@ -377,134 +405,18 @@ function findPathOnStartOrEndNodeMouseMove(value) {
   }
 }
 
-//---------------------------------------------
+//-----------------------------------------------------------------------------
 //
-//GRAPH ALGO'S AND HELPER FUCNTIONS
+//=============================================================================
 //
-//---------------------------------------------
-
-function animateNodes(nodesArray) {
-  const removeWallAnimation = [
-    { transform: 'scale(1.2)', offset: 0.75 },
-    { backgroundColor: 'hsl(0, 0%, 100%)' },
-  ];
-  const wallAnimation = [
-    { transform: 'scale(1.2)', offset: 0.75 },
-    { backgroundColor: 'hsla(240, 23%, 8%, 0.9)' },
-  ];
-  const visitedAnimation = [
-    { transform: 'scale(.2)' },
-    {
-      borderRadius: '50%',
-      backgroundColor: 'hsl(281, 53%, 24%)',
-      offset: 0.25,
-    },
-    { transform: 'scale(1.2)', offset: 0.7 },
-  ];
-  const pathAnimation = [
-    { transform: 'scale(.5)' },
-    { backgroundColor: 'hsla(115, 41%, 30%, 0.397)', offset: 0.5 },
-    { transform: 'scale(1.2)', offset: 0.75 },
-  ];
-
-  const speed = grid.animationSpeed;
-  let nodeTypeToAnimate;
-
-  for (let i = 0; i < nodesArray.length; i++) {
-    const currentNode = nodesArray[i];
-
-    if (typeof currentNode === 'string') {
-      nodeTypeToAnimate = currentNode;
-      continue;
-    }
-
-    if (nodeTypeToAnimate === 'add wall') {
-      if (speed === 0) {
-        currentNode.isWall = true;
-        currentNode.DOMRef.classList.add('wall-node');
-        if (i === nodesArray.length - 1) grid.canMutate = true;
-      } else {
-        setTimeout(() => {
-          currentNode.isWall = true;
-          currentNode.DOMRef.classList.add('wall-node');
-
-          currentNode.DOMRef.animate(wallAnimation, 400);
-          if (i === nodesArray.length - 1) grid.canMutate = true;
-        }, speed * i);
-      }
-    } else if (nodeTypeToAnimate === 'remove wall') {
-      if (speed === 0) {
-        currentNode.isWall = false;
-        currentNode.DOMRef.classList.remove('wall-node');
-        if (i === nodesArray.length - 1) grid.canMutate = true;
-      } else {
-        setTimeout(() => {
-          currentNode.isWall = false;
-          currentNode.DOMRef.classList.remove('wall-node');
-          currentNode.DOMRef.animate(removeWallAnimation, 400);
-          if (i === nodesArray.length - 1) grid.canMutate = true;
-        }, speed * i);
-      }
-    } else if (nodeTypeToAnimate === 'visited') {
-      if (speed === 0) {
-        currentNode.visited = true;
-        currentNode.DOMRef.classList.add('visited');
-        if (i === nodesArray.length - 1 && !nodesArray.includes('path')) {
-          grid.canMutate = true;
-        }
-      } else {
-        setTimeout(() => {
-          currentNode.visited = true;
-          currentNode.DOMRef.classList.add('visited');
-          currentNode.DOMRef.animate(visitedAnimation, 500);
-          if (i === nodesArray.length - 1 && !nodesArray.includes('path')) {
-            grid.canMutate = true;
-          }
-        }, speed * i);
-      }
-    } else if (nodeTypeToAnimate === 'path') {
-      if (speed === 0) {
-        currentNode.DOMRef.classList.add('path-node');
-        if (i === nodesArray.length - 1) grid.canMutate = true;
-      } else {
-        setTimeout(() => {
-          currentNode.DOMRef.classList.add('path-node');
-          currentNode.DOMRef.animate(pathAnimation, 500);
-          if (i === nodesArray.length - 1) grid.canMutate = true;
-        }, speed * i);
-      }
-    }
-  }
-}
+//------------------------GRAPH ALGO'S AND HELPER FUCNTIONS--------------------
+//
+//=============================================================================s
+//
+//-----------------------------------------------------------------------------
 
 function randInt(max, min = 0) {
   return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
-function createGrid(gridSize, wrapper) {
-  const wrapperWidth = wrapper.offsetWidth;
-  const wrapperHeight = wrapper.offsetHeight;
-
-  const gridWidth = gridSize;
-  const gridHeight = Math.round(gridSize * 0.45);
-
-  const divWidth = (wrapperWidth / gridWidth).toFixed(3);
-  const divHeight = (wrapperHeight / gridHeight).toFixed(3);
-
-  for (let y = 0; y < gridHeight; y++) {
-    grid.push(new Array());
-    for (let x = 0; x < gridWidth; x++) {
-      const div = document.createElement('div');
-      div.classList.add('node');
-      div.setAttribute('id', y + '-' + x);
-      div.style.width = divWidth + 'px';
-      div.style.height = divHeight + 'px';
-      wrapper.append(div);
-
-      grid[y].push(new Node(`${y}-${x}`));
-      grid[y][x].DOMRef = div;
-    }
-  }
 }
 
 function generateWallsRandom() {
@@ -526,6 +438,10 @@ function generateWallsRandom() {
   }
   animateNodes(nodesToAnimate);
 }
+
+//-----------------------------------------------------
+//Create Walls Recursive Backtracker and heler function
+//-----------------------------------------------------
 
 function chooseOrientation(width, height) {
   if (width < height) {
@@ -563,9 +479,7 @@ function generateWallsRecursiveDivision() {
     firstXEnd - firstXStart,
     firstYEnd - firstYStart
   );
-
   divide(firstYStart, firstYEnd, firstXStart, firstXEnd, orientation);
-
   animateNodes(wallsToAnimate);
 
   function divide(yStart, yEnd, xStart, xEnd, orient) {
@@ -645,6 +559,105 @@ function generateWallsRecursiveDivision() {
   }
 }
 
+//-------------------------------------------------------------------------
+//Create walls Recursive Backtracker and helper function
+//-------------------------------------------------------------------------
+
+function getRecursiveBacktrackerUnvisitedNeighbors(
+  currentX,
+  currentY,
+  visited
+) {
+  let possibleNeighbors = [
+    [currentY - 2, currentX],
+    [currentY, currentX + 2],
+    [currentY + 2, currentX],
+    [currentY, currentX - 2],
+  ];
+
+  let neighbors = [];
+
+  for (let i = 0; i < possibleNeighbors.length; i++) {
+    let [y, x] = possibleNeighbors[i];
+    if (y < 0 || y > grid.length - 1 || x < 0 || x > grid[0].length - 1)
+      continue;
+    if (visited[y][x]) continue;
+
+    neighbors.push([y, x]);
+  }
+  if (neighbors.length > 0) {
+    const nextIdx = Math.floor(Math.random() * neighbors.length);
+    return neighbors[nextIdx];
+  } else {
+    return;
+  }
+}
+
+function generateMazeRecursiveBacktracker(startX, startY) {
+  grid.map((row) =>
+    row.map((node) => {
+      if (node.isStart || node.isEnd) return;
+
+      node.isWall = true;
+      node.DOMRef.classList.add('wall-node');
+    })
+  );
+
+  const visited = grid.map((row) => row.map((_) => false));
+  visited[startY][startX] = true;
+
+  const nodesToAddWall = [];
+  nodesToAddWall.push('remove wall');
+  const stack = [];
+  let [currentY, currentX] = [startY, startX];
+
+  while (true) {
+    let next = getRecursiveBacktrackerUnvisitedNeighbors(
+      currentX,
+      currentY,
+      visited
+    );
+    nodesToAddWall.push(grid[currentY][currentX]);
+
+    if (next) {
+      stack.push(next);
+
+      let [nextY, nextX] = next;
+      visited[nextY][nextX] = true;
+      let inbetweenWall;
+      if (currentX === nextX) {
+        if (currentY > nextY) {
+          inbetweenWall = [currentY - 1, currentX];
+        } else {
+          inbetweenWall = [currentY + 1, currentX];
+        }
+      } else if (currentY === nextY) {
+        if (currentX > nextX) {
+          inbetweenWall = [currentY, currentX - 1];
+        } else {
+          inbetweenWall = [currentY, currentX + 1];
+        }
+      }
+
+      nodesToAddWall.push(grid[inbetweenWall[0]][inbetweenWall[1]]);
+
+      currentY = nextY;
+      currentX = nextX;
+    } else {
+      if (stack.length > 0) {
+        next = stack.pop();
+
+        [currentY, currentX] = next;
+      } else {
+        break;
+      }
+    }
+  }
+  animateNodes(nodesToAddWall);
+}
+
+//horizontal manhattan distance from Greedy bfs and A* search
+
 function manhattanDist(yCurrent, xCurrent, yEnd, xEnd) {
   return Math.abs(yEnd - yCurrent) + Math.abs(xEnd - xCurrent);
 }
@@ -676,8 +689,7 @@ function greedyBreadthFirstSearch() {
     if (currentNode === endNode) {
       const shortestPath = getShortestPath(currentNode, prev, startNode);
       shortestPath.unshift('path');
-      const nodesToDisplay = visitedNodesToDisplay.concat(shortestPath);
-      animateNodes(nodesToDisplay);
+      animateNodes(visitedNodesToDisplay.concat(shortestPath));
       return;
     }
 
@@ -732,14 +744,9 @@ function aStar() {
     visitedNodesToDisplay.push(currentNode);
 
     if (currentNode == endNode) {
-      // const shortestPath = getShortestPath(currentNode, prev, startNode);
-      // animateNodes(visitedNodesToDisplay, 'visited');
-      // animateNodes(shortestPath, 'path');
-
       const shortestPath = getShortestPath(currentNode, prev, startNode);
       shortestPath.unshift('path');
-      const nodes = visitedNodesToDisplay.concat(shortestPath);
-      animateNodes(nodes);
+      animateNodes(visitedNodesToDisplay.concat(shortestPath));
       break;
     }
 
@@ -758,7 +765,6 @@ function aStar() {
         endNode.x
       );
       const newGlobalCost = newNeighborDist + neighborHorizDist;
-      // console.log( newNeighborDist, neighborHorizDist, newGlobalCost);
 
       if (
         newGlobalCost <
@@ -787,7 +793,7 @@ function breadthFirstSearch() {
   queue.push(startNode);
 
   while (queue.length) {
-    let currentNode = queue.shift();
+    const currentNode = queue.shift();
     visited[currentNode.y][currentNode.x] = true;
 
     // nodesToDisplay.push(currentNode);
@@ -795,8 +801,7 @@ function breadthFirstSearch() {
     if (currentNode === endNode) {
       const shortestPath = getShortestPath(currentNode, prev, startNode);
       shortestPath.unshift('path');
-      const nodesToDisplay = visitedNodesToDisplay.concat(shortestPath);
-      animateNodes(nodesToDisplay);
+      animateNodes(visitedNodesToDisplay.concat(shortestPath));
 
       return;
     }
@@ -906,8 +911,8 @@ function depthFirstSearch() {
   const endNode = grid[grid.endNode[0]][grid.endNode[1]];
   const startNode = grid[grid.startNode[0]][grid.startNode[1]];
 
-  const prev = grid.map((row) => row.map((n) => null));
-  const visited = grid.map((row) => row.map((n) => false));
+  const prev = grid.map((row) => row.map(() => null));
+  const visited = grid.map((row) => row.map(() => false));
   visited[startNode.y][startNode.x];
 
   stack.push(startNode);
@@ -918,13 +923,8 @@ function depthFirstSearch() {
     visitedNodesToDisplay.push(currentNode);
 
     if (currentNode == endNode) {
-      const shortestPath = getShortestPath(
-        currentNode,
-        prev,
-        startNode
-      ).unshift('path');
-      console.log(currentNode, prev, startNode);
-      console.log(shortestPath);
+      const shortestPath = getShortestPath(currentNode, prev, startNode);
+      shortestPath.unshift('path');
       animateNodes(visitedNodesToDisplay.concat(shortestPath));
       return;
     }
@@ -944,110 +944,109 @@ function depthFirstSearch() {
   animateNodes(visitedNodesToDisplay);
 }
 
-function getShortestPath(currentNode, prev, startNode) {
+function getShortestPath(currentNode, prevArray, startNode) {
   const shortestPath = [];
   while (true) {
-    if (prev[currentNode.y][currentNode.x] == startNode) break;
+    if (prevArray[currentNode.y][currentNode.x] == startNode) break;
 
-    shortestPath.unshift(prev[currentNode.y][currentNode.x]);
-    currentNode = prev[currentNode.y][currentNode.x];
+    shortestPath.unshift(prevArray[currentNode.y][currentNode.x]);
+    currentNode = prevArray[currentNode.y][currentNode.x];
   }
   return shortestPath;
 }
 
-function getRecursiveBacktrackerUnvisitedNeighbors(
-  currentX,
-  currentY,
-  visited
-) {
-  let possibleNeighbors = [
-    [currentY - 2, currentX],
-    [currentY, currentX + 2],
-    [currentY + 2, currentX],
-    [currentY, currentX - 2],
+function animateNodes(nodesArray) {
+  const removeWallAnimation = [
+    { transform: 'scale(1.2)', offset: 0.75 },
+    { backgroundColor: 'hsl(0, 0%, 100%)' },
+  ];
+  const wallAnimation = [
+    { transform: 'scale(1.2)', offset: 0.75 },
+    { backgroundColor: 'hsla(240, 23%, 8%, 0.9)' },
+  ];
+  const visitedAnimation = [
+    { transform: 'scale(.2)' },
+    {
+      borderRadius: '50%',
+      backgroundColor: 'hsl(281, 53%, 24%)',
+      offset: 0.25,
+    },
+    { transform: 'scale(1.2)', offset: 0.7 },
+  ];
+  const pathAnimation = [
+    { transform: 'scale(.5)' },
+    { backgroundColor: 'hsla(115, 41%, 30%, 0.397)', offset: 0.5 },
+    { transform: 'scale(1.2)', offset: 0.75 },
   ];
 
-  let neighbors = [];
+  const speed = grid.animationSpeed;
+  let nodeTypeToAnimate;
 
-  for (let i = 0; i < possibleNeighbors.length; i++) {
-    let [y, x] = possibleNeighbors[i];
-    if (y < 0 || y > grid.length - 1 || x < 0 || x > grid[0].length - 1)
+  for (let i = 0; i < nodesArray.length; i++) {
+    const currentNode = nodesArray[i];
+
+    if (typeof currentNode === 'string') {
+      nodeTypeToAnimate = currentNode;
       continue;
-    if (visited[y][x]) continue;
+    }
 
-    neighbors.push([y, x]);
-  }
-  if (neighbors.length > 0) {
-    const nextIdx = Math.floor(Math.random() * neighbors.length);
-    return neighbors[nextIdx];
-  } else {
-    return;
-  }
-}
-
-function generateMazeRecursiveBacktracker(startX, startY) {
-  grid.map((row) =>
-    row.map((node) => {
-      if (node.isStart || node.isEnd) return;
-
-      node.isWall = true;
-      node.DOMRef.classList.add('wall-node');
-    })
-  );
-
-  const visited = grid.map((row) => row.map((_) => false));
-  visited[startY][startX] = true;
-
-  const nodesToAddWall = [];
-  nodesToAddWall.push('remove wall');
-  const stack = [];
-  let [currentY, currentX] = [startY, startX];
-
-  while (true) {
-    let next = getRecursiveBacktrackerUnvisitedNeighbors(
-      currentX,
-      currentY,
-      visited
-    );
-    // console.log('next[Y, X] ' + next);
-    nodesToAddWall.push(grid[currentY][currentX]);
-
-    if (next) {
-      stack.push(next);
-
-      let [nextY, nextX] = next;
-      visited[nextY][nextX] = true;
-      let inbetweenWall;
-      if (currentX === nextX) {
-        if (currentY > nextY) {
-          inbetweenWall = [currentY - 1, currentX];
-        } else {
-          inbetweenWall = [currentY + 1, currentX];
-        }
-      } else if (currentY === nextY) {
-        if (currentX > nextX) {
-          inbetweenWall = [currentY, currentX - 1];
-        } else {
-          inbetweenWall = [currentY, currentX + 1];
-        }
-      }
-
-      nodesToAddWall.push(grid[inbetweenWall[0]][inbetweenWall[1]]);
-
-      currentY = nextY;
-      currentX = nextX;
-    } else {
-      console.log('no next');
-      if (stack.length > 0) {
-        next = stack.pop();
-
-        [currentY, currentX] = next;
+    if (nodeTypeToAnimate === 'add wall') {
+      if (speed === 0) {
+        currentNode.isWall = true;
+        currentNode.DOMRef.classList.add('wall-node');
+        if (i === nodesArray.length - 1) grid.canMutate = true;
       } else {
-        break;
+        setTimeout(() => {
+          currentNode.isWall = true;
+          currentNode.DOMRef.classList.add('wall-node');
+
+          currentNode.DOMRef.animate(wallAnimation, 400);
+          if (i === nodesArray.length - 1) grid.canMutate = true;
+        }, speed * i);
+      }
+    } else if (nodeTypeToAnimate === 'remove wall') {
+      if (speed === 0) {
+        currentNode.isWall = false;
+        currentNode.DOMRef.classList.remove('wall-node');
+        if (i === nodesArray.length - 1) grid.canMutate = true;
+      } else {
+        setTimeout(() => {
+          currentNode.isWall = false;
+          currentNode.DOMRef.classList.remove('wall-node');
+          currentNode.DOMRef.animate(removeWallAnimation, 400);
+          if (i === nodesArray.length - 1) grid.canMutate = true;
+        }, speed * i);
+      }
+    } else if (nodeTypeToAnimate === 'visited') {
+      if (speed === 0) {
+        currentNode.visited = true;
+        currentNode.DOMRef.classList.add('visited');
+        if (i === nodesArray.length - 1 && !nodesArray.includes('path')) {
+          grid.canMutate = true;
+        }
+      } else {
+        setTimeout(() => {
+          currentNode.visited = true;
+          currentNode.DOMRef.classList.add('visited');
+          currentNode.DOMRef.animate(visitedAnimation, 500);
+          if (i === nodesArray.length - 1 && !nodesArray.includes('path')) {
+            grid.canMutate = true;
+          }
+        }, speed * i);
+      }
+    } else if (nodeTypeToAnimate === 'path') {
+      if (speed === 0) {
+        currentNode.DOMRef.classList.add('path-node');
+        if (i === nodesArray.length - 1) grid.canMutate = true;
+      } else {
+        setTimeout(() => {
+          currentNode.DOMRef.classList.add('path-node');
+          currentNode.DOMRef.animate(pathAnimation, 500);
+          if (i === nodesArray.length - 1) grid.canMutate = true;
+        }, speed * i);
       }
     }
   }
-  animateNodes(nodesToAddWall);
 }
 
 /* function djikstra() {
