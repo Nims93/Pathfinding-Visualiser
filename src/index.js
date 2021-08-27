@@ -419,42 +419,60 @@ function animateNodes(nodesArray) {
     }
 
     if (nodeTypeToAnimate === 'add wall') {
-      setTimeout(() => {
+      if (speed === 0) {
         currentNode.isWall = true;
         currentNode.DOMRef.classList.add('wall-node');
-        if (speed !== 0) {
+        if (i === nodesArray.length - 1) grid.canMutate = true;
+      } else {
+        setTimeout(() => {
+          currentNode.isWall = true;
+          currentNode.DOMRef.classList.add('wall-node');
+
           currentNode.DOMRef.animate(wallAnimation, 400);
           if (i === nodesArray.length - 1) grid.canMutate = true;
-        }
-      }, speed * i);
+        }, speed * i);
+      }
     } else if (nodeTypeToAnimate === 'remove wall') {
-      setTimeout(() => {
+      if (speed === 0) {
         currentNode.isWall = false;
         currentNode.DOMRef.classList.remove('wall-node');
-        if (speed !== 0) {
+        if (i === nodesArray.length - 1) grid.canMutate = true;
+      } else {
+        setTimeout(() => {
+          currentNode.isWall = false;
+          currentNode.DOMRef.classList.remove('wall-node');
           currentNode.DOMRef.animate(removeWallAnimation, 400);
           if (i === nodesArray.length - 1) grid.canMutate = true;
-        }
-      }, speed * i);
+        }, speed * i);
+      }
     } else if (nodeTypeToAnimate === 'visited') {
-      setTimeout(() => {
+      if (speed === 0) {
         currentNode.visited = true;
         currentNode.DOMRef.classList.add('visited');
-        if (speed !== 0) {
+        if (i === nodesArray.length - 1 && !nodesArray.includes('path')) {
+          grid.canMutate = true;
+        }
+      } else {
+        setTimeout(() => {
+          currentNode.visited = true;
+          currentNode.DOMRef.classList.add('visited');
           currentNode.DOMRef.animate(visitedAnimation, 500);
           if (i === nodesArray.length - 1 && !nodesArray.includes('path')) {
             grid.canMutate = true;
           }
-        }
-      }, speed * i);
+        }, speed * i);
+      }
     } else if (nodeTypeToAnimate === 'path') {
-      setTimeout(() => {
+      if (speed === 0) {
         currentNode.DOMRef.classList.add('path-node');
-        if (speed !== 0) {
+        if (i === nodesArray.length - 1) grid.canMutate = true;
+      } else {
+        setTimeout(() => {
+          currentNode.DOMRef.classList.add('path-node');
           currentNode.DOMRef.animate(pathAnimation, 500);
           if (i === nodesArray.length - 1) grid.canMutate = true;
-        }
-      }, speed * i);
+        }, speed * i);
+      }
     }
   }
 }
