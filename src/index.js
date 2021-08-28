@@ -14,6 +14,8 @@ const animationSpeedBtn = document.querySelector('#animation-speed');
 const pathfindingDropdownBtn = document.querySelector('#pathfinding-dropdown');
 const mazeGenDroptdownBtn = document.querySelector('#maze-dropdown');
 
+const tutorialBtn = document.querySelector('#help');
+
 //class represents each node/vertex in grid
 class Node {
   constructor(id) {
@@ -100,12 +102,13 @@ createGrid(parseInt(gridSizeSlider.value), gridWrapper);
 setStartEndNodes();
 grid.canMutate = true;
 
-function createGrid(gridSize, wrapper) {
-  const wrapperWidth = wrapper.offsetWidth;
-  const wrapperHeight = wrapper.offsetHeight;
+function createGrid(gridSize, visualiserWrapper) {
+  const wrapperWidth = visualiserWrapper.clientWidth;
+  const wrapperHeight = visualiserWrapper.clientHeight;
 
   const gridWidth = gridSize;
-  const gridHeight = Math.round(gridSize * 0.45);
+  const gridHeight = Math.floor(gridSize * 0.45);
+  // console.log(wrapperWidth);
 
   const divWidth = (wrapperWidth / gridWidth).toFixed(3);
   const divHeight = (wrapperHeight / gridHeight).toFixed(3);
@@ -118,7 +121,7 @@ function createGrid(gridSize, wrapper) {
       div.setAttribute('id', y + '-' + x);
       div.style.width = divWidth + 'px';
       div.style.height = divHeight + 'px';
-      wrapper.append(div);
+      visualiserWrapper.append(div);
 
       grid[y].push(new Node(`${y}-${x}`));
       grid[y][x].DOMRef = div;
@@ -404,6 +407,64 @@ function findPathOnStartOrEndNodeMouseDrag(value) {
     grid.animationSpeed = prevAnimationSpeed;
   }
 }
+
+const tutorialWrapper = document.querySelector('.tutorial-wrapper');
+const closeTutorialBtnArray = document.querySelectorAll('.close-tutorial');
+
+tutorialBtn.addEventListener('click', () => {
+  const tutorialTransparencyLayer = document.querySelector(
+    '.tutorial-transparency-layer'
+  );
+  tutorialTransparencyLayer.classList.add('visible');
+
+  for (let closeBtn of closeTutorialBtnArray) {
+    closeBtn.addEventListener('click', () => {
+      tutorialTransparencyLayer.classList.remove('visible');
+    });
+  }
+});
+
+tutorialWrapper.addEventListener('click', (e) => {
+  const pageChangeBtn = e.target;
+  if (
+    pageChangeBtn.classList.contains('next-tutorial-slide') ||
+    pageChangeBtn.classList.contains('previous-tutorial-slide')
+  ) {
+    for (let i = 0; i < tutorialWrapper.children.length; i++) {
+      if (tutorialWrapper.children[i].classList.contains('visible')) {
+        var currentVisibleChildIdx = i;
+        break;
+      }
+    }
+
+    tutorialWrapper.children[currentVisibleChildIdx].classList.remove(
+      'visible'
+    );
+    if (pageChangeBtn.classList[0] === 'next-tutorial-slide') {
+      if (currentVisibleChildIdx + 1 < tutorialWrapper.children.length) {
+        tutorialWrapper.children[currentVisibleChildIdx + 1].classList.add(
+          'visible'
+        );
+      } else {
+        tutorialWrapper.children[0].classList.add('visible');
+        document
+          .querySelector('.tutorial-transparency-layer')
+          .classList.remove('visible');
+      }
+    } else {
+      if (currentVisibleChildIdx - 1 > 0) {
+        tutorialWrapper.children[currentVisibleChildIdx - 1].classList.add(
+          'visible'
+        );
+      } else {
+        tutorialWrapper.children[0].classList.add('visible');
+        document
+          .querySelector('.tutorial-transparency-layer')
+          .classList.remove('visible');
+      }
+    }
+  }
+});
 
 //-----------------------------------------------------------------------------
 //

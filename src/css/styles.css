@@ -167,6 +167,14 @@
   margin: 0 0.2em;
 }
 
+#controls-menu #help {
+  width: 2em;
+  height: 2em;
+  margin-left: 0.5em;
+  border-radius: 50%;
+  border: 2px solid #4d91f7;
+}
+
 @media screen and (max-width: 880px) {
   #controls-menu h1.title {
     position: relative;
@@ -343,6 +351,75 @@ main .visualiser div {
   100% {
     background-color: white;
   }
+}
+
+.tutorial-transparency-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  opacity: 0;
+  z-index: -1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  overflow: hidden;
+}
+
+.tutorial-transparency-layer .tutorial-wrapper {
+  width: 600px;
+  height: 400px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+}
+
+.tutorial-transparency-layer .tutorial-wrapper .tutorial-slide {
+  width: 0;
+  opacity: 0;
+}
+
+.tutorial-transparency-layer .tutorial-wrapper .tutorial-slide .close-tutorial {
+  margin-left: auto;
+}
+
+.tutorial-transparency-layer .tutorial-wrapper .tutorial-slide img {
+  width: 80%;
+  height: auto;
+  -o-object-position: center;
+     object-position: center;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.tutorial-transparency-layer .tutorial-wrapper .tutorial-slide button.previous-tutorial-slide {
+  margin-right: auto;
+}
+
+.tutorial-transparency-layer .tutorial-wrapper .tutorial-slide button.next-tutorial-slide {
+  margin-left: auto;
+}
+
+.tutorial-transparency-layer.visible {
+  opacity: 1;
+  z-index: 3;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.tutorial-transparency-layer.visible .tutorial-wrapper .tutorial-slide.visible {
+  width: 100%;
+  opacity: 1;
 }
 
 * {
