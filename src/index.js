@@ -408,7 +408,6 @@ function findPathOnStartOrEndNodeMouseDrag(value) {
   }
 }
 
-const tutorialWrapper = document.querySelector('.tutorial-wrapper');
 const closeTutorialBtnArray = document.querySelectorAll('.close-tutorial');
 
 tutorialBtn.addEventListener('click', () => {
@@ -424,47 +423,39 @@ tutorialBtn.addEventListener('click', () => {
   }
 });
 
-tutorialWrapper.addEventListener('click', (e) => {
-  const pageChangeBtn = e.target;
-  if (
-    pageChangeBtn.classList.contains('next-tutorial-slide') ||
-    pageChangeBtn.classList.contains('previous-tutorial-slide')
-  ) {
-    for (let i = 0; i < tutorialWrapper.children.length; i++) {
-      if (tutorialWrapper.children[i].classList.contains('visible')) {
-        var currentVisibleChildIdx = i;
-        break;
-      }
-    }
+const tutorialNextAndPrevBtns = document.querySelectorAll(
+  '.tutorial-switcher-btn'
+);
 
-    tutorialWrapper.children[currentVisibleChildIdx].classList.remove(
-      'visible'
-    );
-    if (pageChangeBtn.classList[0] === 'next-tutorial-slide') {
-      if (currentVisibleChildIdx + 1 < tutorialWrapper.children.length) {
-        tutorialWrapper.children[currentVisibleChildIdx + 1].classList.add(
-          'visible'
-        );
-      } else {
-        tutorialWrapper.children[0].classList.add('visible');
-        document
-          .querySelector('.tutorial-transparency-layer')
-          .classList.remove('visible');
-      }
-    } else {
-      if (currentVisibleChildIdx - 1 > 0) {
-        tutorialWrapper.children[currentVisibleChildIdx - 1].classList.add(
-          'visible'
-        );
-      } else {
-        tutorialWrapper.children[0].classList.add('visible');
-        document
-          .querySelector('.tutorial-transparency-layer')
-          .classList.remove('visible');
-      }
+for (let btn of tutorialNextAndPrevBtns) {
+  btn.addEventListener('click', handleNextAndPreTutorialClick);
+}
+
+function handleNextAndPreTutorialClick(e) {
+  const pageChangeBtn = e.currentTarget;
+  const tutorialWrapper = document.querySelector('.tutorial-wrapper');
+
+  for (let i = 0; i < tutorialWrapper.children.length; i++) {
+    if (tutorialWrapper.children[i].classList.contains('visible')) {
+      var currVisChildIdx = i;
+      break;
     }
   }
-});
+
+  tutorialWrapper.children[currVisChildIdx].classList.remove('visible');
+
+  if (pageChangeBtn.classList[0] === 'next-tutorial-slide') {
+    currVisChildIdx + 1 < tutorialWrapper.children.length
+      ? tutorialWrapper.children[currVisChildIdx + 1].classList.add('visible')
+      : tutorialWrapper.children[0].classList.add('visible');
+  } else {
+    currVisChildIdx > 0
+      ? tutorialWrapper.children[currVisChildIdx - 1].classList.add('visible')
+      : tutorialWrapper.children[
+          tutorialWrapper.children.length - 1
+        ].classList.add('visible');
+  }
+}
 
 //-----------------------------------------------------------------------------
 //

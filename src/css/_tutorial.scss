@@ -10,6 +10,7 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  transition: all 0.5s ease-in;
 
   .tutorial-wrapper {
     width: 600px;
@@ -18,11 +19,47 @@
     flex-flow: row nowrap;
 
     .tutorial-slide {
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      justify-content: space-between;
       width: 0;
+      height: 100%;
       opacity: 0;
+      background-color: white;
+      color: black;
+      border-radius: 5px;
+      overflow: hidden;
 
-      .close-tutorial {
-        margin-left: auto;
+      .tutorial-top-row {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items: flex-start;
+        width: 100%;
+
+        .slide-number {
+          font-size: 1.5em;
+          margin: 0.5em 0 0 1em;
+        }
+
+        .tutorial-slide-title {
+          font-size: 2.2em;
+          margin: 0;
+          margin-top: 1em;
+        }
+
+        button.close-tutorial {
+          width: 3.3em;
+          background-color: $highlightColor;
+          border: 0;
+          border-radius: 0 0 0 10px;
+
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
       }
 
       img {
@@ -32,12 +69,30 @@
         object-fit: contain;
       }
 
-      button.previous-tutorial-slide {
-        margin-right: auto;
-      }
+      .tutorial-bottom-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
 
-      button.next-tutorial-slide {
-        margin-left: auto;
+        button {
+          appearance: none;
+          font-family: 'Lato', Arial, sans-serif;
+          font-size: 14px;
+          font-weight: 600;
+          padding: 0.5em 1em;
+          background-color: $highlightColor;
+          border: 0;
+          width: 50%;
+        }
+
+        button.previous-tutorial-slide {
+          border-radius: 0 5px 5px 0;
+        }
+
+        button.next-tutorial-slide {
+          border-radius: 5px 0 0 5px;
+        }
       }
     }
   }
@@ -46,11 +101,12 @@
 .tutorial-transparency-layer.visible {
   opacity: 1;
   z-index: 3;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.7);
 
   .tutorial-wrapper {
     .tutorial-slide.visible {
       width: 100%;
+      // min-height: 400px;
       opacity: 1;
     }
   }
