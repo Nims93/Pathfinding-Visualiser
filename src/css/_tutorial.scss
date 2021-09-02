@@ -10,11 +10,16 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  transition: all 0.5s ease-in;
+  transition: all 0.3s ease-in;
 
   .tutorial-wrapper {
-    width: 600px;
-    height: 400px;
+    border-radius: 5px;
+    width: 80%;
+    height: 80%;
+    min-width: 600px;
+    min-height: 400px;
+    max-width: 1000px;
+    max-height: 600px;
     display: flex;
     flex-flow: row nowrap;
 
@@ -26,9 +31,10 @@
       width: 0;
       height: 100%;
       opacity: 0;
-      background-color: white;
+      background-color: hsl(0, 0%, 97%);
       color: black;
       border-radius: 5px;
+      border-bottom: 1px solid $highlightColor;
       overflow: hidden;
 
       .tutorial-top-row {
@@ -54,6 +60,15 @@
           background-color: $highlightColor;
           border: 0;
           border-radius: 0 0 0 10px;
+          transition: background-color 0.2s ease-in-out;
+
+          &:hover {
+            background-color: hsl(0, 98%, 46%);
+          }
+
+          &:active {
+            background-color: hsla(0, 100%, 29%, 0.8);
+          }
 
           img {
             width: 100%;
@@ -62,11 +77,23 @@
         }
       }
 
-      img {
-        width: 80%;
+      img.tutorial-video {
+        width: 90%;
         height: auto;
         object-position: center;
         object-fit: contain;
+      }
+
+      p.tutorial-text {
+        font-size: 1.3em;
+        width: 90%;
+        text-align: center;
+
+        strong {
+          font-weight: 800;
+          font-size: 1.1em;
+          text-decoration: underline;
+        }
       }
 
       .tutorial-bottom-row {
@@ -80,18 +107,37 @@
           font-family: 'Lato', Arial, sans-serif;
           font-size: 14px;
           font-weight: 600;
-          padding: 0.5em 1em;
+          padding: 0;
           background-color: $highlightColor;
           border: 0;
           width: 50%;
+
+          svg {
+            height: 2.2em;
+            width: 2.2em;
+          }
+
+          &:hover {
+            background-color: hsl(216, 80%, 48%);
+          }
+
+          &:active {
+            background-color: hsl(216, 88%, 35%);
+
+            svg {
+              fill: white;
+            }
+          }
         }
 
         button.previous-tutorial-slide {
-          border-radius: 0 5px 5px 0;
+          border-right: 1px solid black;
+          // border-radius: 0 5px 5px 0;
         }
 
         button.next-tutorial-slide {
-          border-radius: 5px 0 0 5px;
+          border-left: 1px solid black;
+          // border-radius: 5px 0 0 5px;
         }
       }
     }
@@ -101,7 +147,7 @@
 .tutorial-transparency-layer.visible {
   opacity: 1;
   z-index: 3;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: hsla(0, 0%, 0%, 0.5);
 
   .tutorial-wrapper {
     .tutorial-slide.visible {

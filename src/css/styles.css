@@ -96,7 +96,7 @@
 }
 
 #controls-menu .dropdown-container .dropdown-menu-ul li button:hover {
-  background-color: #4d91f7;
+  background-color: #5092f7;
 }
 
 #controls-menu .dropdown-container .dropdown-menu-ul li button:active {
@@ -371,13 +371,18 @@ main .visualiser div {
       -ms-flex-pack: center;
           justify-content: center;
   overflow: hidden;
-  -webkit-transition: all 0.5s ease-in;
-  transition: all 0.5s ease-in;
+  -webkit-transition: all 0.3s ease-in;
+  transition: all 0.3s ease-in;
 }
 
 .tutorial-transparency-layer .tutorial-wrapper {
-  width: 600px;
-  height: 400px;
+  border-radius: 5px;
+  width: 80%;
+  height: 80%;
+  min-width: 600px;
+  min-height: 400px;
+  max-width: 1000px;
+  max-height: 600px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -404,9 +409,10 @@ main .visualiser div {
   width: 0;
   height: 100%;
   opacity: 0;
-  background-color: white;
+  background-color: #f7f7f7;
   color: black;
   border-radius: 5px;
+  border-bottom: 1px solid #4d91f7;
   overflow: hidden;
 }
 
@@ -443,6 +449,16 @@ main .visualiser div {
   background-color: #4d91f7;
   border: 0;
   border-radius: 0 0 0 10px;
+  -webkit-transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.tutorial-transparency-layer .tutorial-wrapper .tutorial-slide .tutorial-top-row button.close-tutorial:hover {
+  background-color: #e80202;
+}
+
+.tutorial-transparency-layer .tutorial-wrapper .tutorial-slide .tutorial-top-row button.close-tutorial:active {
+  background-color: rgba(148, 0, 0, 0.8);
 }
 
 .tutorial-transparency-layer .tutorial-wrapper .tutorial-slide .tutorial-top-row button.close-tutorial img {
@@ -450,13 +466,25 @@ main .visualiser div {
   height: 100%;
 }
 
-.tutorial-transparency-layer .tutorial-wrapper .tutorial-slide img {
-  width: 80%;
+.tutorial-transparency-layer .tutorial-wrapper .tutorial-slide img.tutorial-video {
+  width: 90%;
   height: auto;
   -o-object-position: center;
      object-position: center;
   -o-object-fit: contain;
      object-fit: contain;
+}
+
+.tutorial-transparency-layer .tutorial-wrapper .tutorial-slide p.tutorial-text {
+  font-size: 1.3em;
+  width: 90%;
+  text-align: center;
+}
+
+.tutorial-transparency-layer .tutorial-wrapper .tutorial-slide p.tutorial-text strong {
+  font-weight: 800;
+  font-size: 1.1em;
+  text-decoration: underline;
 }
 
 .tutorial-transparency-layer .tutorial-wrapper .tutorial-slide .tutorial-bottom-row {
@@ -479,24 +507,41 @@ main .visualiser div {
   font-family: 'Lato', Arial, sans-serif;
   font-size: 14px;
   font-weight: 600;
-  padding: 0.5em 1em;
+  padding: 0;
   background-color: #4d91f7;
   border: 0;
   width: 50%;
 }
 
+.tutorial-transparency-layer .tutorial-wrapper .tutorial-slide .tutorial-bottom-row button svg {
+  height: 2.2em;
+  width: 2.2em;
+}
+
+.tutorial-transparency-layer .tutorial-wrapper .tutorial-slide .tutorial-bottom-row button:hover {
+  background-color: #1867dc;
+}
+
+.tutorial-transparency-layer .tutorial-wrapper .tutorial-slide .tutorial-bottom-row button:active {
+  background-color: #0b4aa8;
+}
+
+.tutorial-transparency-layer .tutorial-wrapper .tutorial-slide .tutorial-bottom-row button:active svg {
+  fill: white;
+}
+
 .tutorial-transparency-layer .tutorial-wrapper .tutorial-slide .tutorial-bottom-row button.previous-tutorial-slide {
-  border-radius: 0 5px 5px 0;
+  border-right: 1px solid black;
 }
 
 .tutorial-transparency-layer .tutorial-wrapper .tutorial-slide .tutorial-bottom-row button.next-tutorial-slide {
-  border-radius: 5px 0 0 5px;
+  border-left: 1px solid black;
 }
 
 .tutorial-transparency-layer.visible {
   opacity: 1;
   z-index: 3;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .tutorial-transparency-layer.visible .tutorial-wrapper .tutorial-slide.visible {
