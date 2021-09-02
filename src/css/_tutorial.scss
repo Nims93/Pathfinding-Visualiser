@@ -78,20 +78,21 @@
       }
 
       img.tutorial-video {
-        width: 90%;
+        width: 85%;
         height: auto;
         object-position: center;
         object-fit: contain;
       }
 
       p.tutorial-text {
-        font-size: 1.3em;
+        margin: 0;
+        font-size: 1.2em;
         width: 90%;
         text-align: center;
 
         strong {
-          font-weight: 800;
-          font-size: 1.1em;
+          font-weight: 900;
+          font-size: 1.05em;
           text-decoration: underline;
         }
       }

@@ -5,10 +5,6 @@ $visualiserWidth: 95vw;
 $wallColor: hsla(240, 23%, 8%, 0.9);
 
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
-@import './controlsMenu';
-@import './legend';
-@import './visualiser';
-@import './tutorial';
 
 * {
   box-sizing: border-box;
@@ -29,3 +25,8 @@ body {
   font-weight: bold;
   // font-smooth
 }
+
+@import './controlsMenu';
+@import './legend';
+@import './visualiser';
+@import './tutorial';

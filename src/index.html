@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Data Structure Visulaliser</title>
+  <title>Pathfinding Visualiser</title>
   <link href="./css/styles.css" rel="stylesheet" type="text/css" />
   <script type="module" src="./modules/heap.js"></script>
   <script type="module" src="./index.js" defer></script>
@@ -62,7 +62,6 @@
   </main>
   <div class="tutorial-transparency-layer">
     <div class="tutorial-wrapper">
-
       <div id="pathfinding-demo" class='tutorial-slide visible'>
         <div class="tutorial-top-row">
           <span class='slide-number'>1 / 7</span>
@@ -73,7 +72,12 @@
         </div>
         <img class='tutorial-video' src="./assets/pathfinding-demo.webp" alt="demo of pathfinding algorithms">
         <p class="tutorial-text">Mouseover the Algorithm menu and select the pathfinding algorithm you want to create a
-          path one exists.</p>
+          path if one exists. <strong>A*:</strong> Guaranteed shortest path. <strong>Greedy Bredth First
+            Search:</strong> Path with the very basic direction heuristic, most of the time will find a path with the
+          least number of visited nodes. <strong>Bi-directional Breadth First Search:</strong> basic search from both
+          start and end node simultaneously. <strong>Breadth First Search:</strong> basic radial search outward from
+          start node. <strong>Depth First Search:</strong> searches along the length of a path as long as possible. Very
+          inefficient.</p>
         <div class="tutorial-bottom-row">
           <button class="previous-tutorial-slide tutorial-switcher-btn">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left"
