@@ -1,7 +1,7 @@
 {
   "name": "pathfinding-visualiser",
   "version": "1.0.0",
-  "description": "Vanilla javasript project to grasp data sctructures and algos",
+  "description": "Visualiser to show pathfinding",
   "main": "./src/index.js",
   "author": "Kieran Cyprien",
   "license": "MIT",
