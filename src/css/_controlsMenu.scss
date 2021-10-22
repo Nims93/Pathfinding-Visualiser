@@ -23,6 +23,10 @@
     flex-direction: column;
     align-items: center;
 
+    @media (max-width: 550px) {
+      display: none;
+    }
+
     label[for='grid-size-slider'] {
       font-size: 1.5em;
       //   position: absolute;

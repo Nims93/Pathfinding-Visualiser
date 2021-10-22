@@ -1,5 +1,3 @@
 node_modules
-media
+dist
 .cache
-src/bullseye-solid.zip
-src/bullseye-solid.zip:Zone.Identifier

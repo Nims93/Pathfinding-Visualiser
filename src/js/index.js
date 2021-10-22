@@ -34,10 +34,13 @@ HTMLElement.prototype.empty = function () {
 //------------------------------------------------------------
 
 //initialise grid
-grid.canMutate = false;
-createGrid(parseInt(gridSizeSlider.value), gridWrapper);
-setStartEndNodes();
-grid.canMutate = true;
+//grid.canMutate = false;
+//createGrid(parseInt(gridSizeSlider.value), gridWrapper);
+//setStartEndNodes();
+//grid.canMutate = true;
+
+//load nodes on page
+handleWindowResizeHandlePageLoad();
 
 function createGrid(gridSize, visualiserWrapper) {
   const wrapperWidth = visualiserWrapper.clientWidth;
@@ -80,7 +83,21 @@ function handleGridSizeInputSlider() {
   }
 }
 
-window.addEventListener('resize', handleGridSizeInputSlider);
+function handleWindowResizeHandlePageLoad() {
+  if (window.innerWidth < 401 && gridSizeSlider.value != '30') {
+    gridSizeSlider.value = '30';
+  } else if (
+    window.innerWidth > 400 &&
+    window.innerWidth < 550 &&
+    gridSizeSlider.value != '40'
+  ) {
+    gridSizeSlider.value = '40';
+  }
+
+  handleGridSizeInputSlider();
+}
+
+window.addEventListener('resize', handleWindowResizeHandlePageLoad);
 
 pathfindingDropdownBtn.addEventListener('click', (e) => {
   if (grid.canMutate) {
@@ -393,148 +410,3 @@ function handleNextAndPreTutorialClick(e) {
         ].classList.add('visible');
   }
 }
-
-/* function djikstra() {
-  const visited = grid.map(row => row.map(node => false));
-  const weight = grid.map(row => row.map(node => (node.isWeight) ? 10 : 1 ));
-  const dist = grid.map(row => row.map(node => Infinity));
-  const prev = grid.map(row => row.map(node => null));
-  const visitedNodesToDisplay = [];
-
-  const startNode = grid[grid.startNode[0]][grid.startNode[1]];
-  const endNode = grid[grid.endNode[0]][grid.endNode[1]];
-
-  dist[startNode.y][startNode.x] = 0;
-  const priorityQueue = new MinHeap;
-
-  priorityQueue.insert([0, startNode]);
-
-  while (!priorityQueue.isEmpty()) {
-    const [currentDist, currentNode] = priorityQueue.extractMin();
-    visited[currentNode.y][currentNode.x] = true;
-    visitedNodesToDisplay.push(currentNode);
-    console.log(priorityQueue.heap);
-
-
-
-    if (currentNode == endNode) {
-      animateNodes(visitedNodesToDisplay, 'visited');
-      console.log(prev);
-      break;
-    }
-
-    const neighbors = Object.values(currentNode.getNeighbors()).filter(n => {
-      if (n && !n.isWall) return n;
-    });
-
-    for (const neighbor of neighbors) {
-      if (visited[neighbor.y][neighbor.x]) {
-        console.log('passed');
-        continue;
-      }
-
-      let newDistance = currentDist + weight[neighbor.y][neighbor.x];
-
-      if (newDistance < dist[neighbor.y][neighbor.x]) {
-        dist[neighbor.y][neighbor.x] = newDistance;
-        priorityQueue.insert([newDistance, neighbor]);
-        prev[neighbor.y][neighbor.x] = currentNode;
-      }
-    }
-  }
-
-} */
-
-//incase I find out how to stop two animateNodes loop running
-//at the same time
-/* function animateNodes(nodesArray, type, reverse = false) {
-  const speed = grid.animationSpeed;
-
-  switch (type) {
-    case 'wall':
-      let wallAnimation;
-      reverse
-        ? (wallAnimation = [
-            { transform: 'scale(1.2)', offset: 0.75 },
-            { backgroundColor: 'hsl(0, 0%, 100%)' },
-          ])
-        : [
-            { transform: 'scale(1.2)', offset: 0.75 },
-            { backgroundColor: 'hsla(240, 23%, 8%, 0.9)' },
-          ];
-
-      for (let i = 0; i < nodesArray.length; i++) {
-        const currentNode = nodesArray[i];
-        if (speed === 0) {
-          reverse ? (currentNode.isWall = false) : (currentNode.isWall = true);
-          reverse
-            ? currentNode.DOMRef.classList.remove('wall-node')
-            : currentNode.DOMRef.classList.add('wall-node');
-          reverse
-            ? currentNode.DOMRef.animate(wallAnimation, 400)
-            : currentNode.DOMRef.animate(wallAnimation, 400);
-        } else {
-          setTimeout(() => {
-            reverse
-              ? (currentNode.isWall = false)
-              : (currentNode.isWall = true);
-            reverse
-              ? currentNode.DOMRef.classList.remove('wall-node')
-              : currentNode.DOMRef.classList.add('wall-node');
-            reverse
-              ? currentNode.DOMRef.animate(wallAnimation, 400)
-              : currentNode.DOMRef.animate(wallAnimation, 400);
-          }, speed * i);
-        }
-      }
-      return true;
-
-    case 'visited':
-      const visitedAnimation = [
-        { transform: 'scale(.2)' },
-        {
-          borderRadius: '50%',
-          backgroundColor: 'hsl(281, 53%, 24%)',
-          offset: 0.25,
-        },
-        { transform: 'scale(1.2)', offset: 0.7 },
-      ];
-
-      for (let i = 0; i < nodesArray.length; i++) {
-        const currentNode = nodesArray[i];
-        if (speed === 0) {
-          currentNode.visited = true;
-          currentNode.DOMRef.classList.add('visited');
-        } else {
-          setTimeout(() => {
-            console.log(i, nodesArray.length);
-            currentNode.visited = true;
-            currentNode.DOMRef.classList.add('visited');
-            currentNode.DOMRef.animate(visitedAnimation, 400);
-          }, speed * i);
-        }
-      }
-      return true;
-
-    case 'path':
-      const pathAnimation = [
-        { transform: 'scale(.5)' },
-        { backgroundColor: 'hsla(115, 41%, 30%, 0.397)', offset: 0.5 },
-        { transform: 'scale(1.2)', offset: 0.75 },
-      ];
-      for (let i = 0; i < nodesArray.length; i++) {
-        const node = nodesArray[i];
-        if (speed === 0) {
-          node.DOMRef.classList.add('path-node');
-        } else {
-          setTimeout(() => {
-            node.DOMRef.classList.add('path-node');
-            node.DOMRef.animate(pathAnimation, 400);
-          }, speed * i);
-        }
-      }
-
-    default:
-      return;
-  }
-} */
