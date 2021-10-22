@@ -39,28 +39,39 @@ HTMLElement.prototype.empty = function () {
 //setStartEndNodes();
 //grid.canMutate = true;
 
-//load nodes on page
-handleWindowResizeHandlePageLoad();
+//load nodes onto page
+document.addEventListener('DOMContentLoaded', () => {
+  handleWindowResizeHandlePageLoad();
+});
 
-function createGrid(gridSize, visualiserWrapper) {
+function createGrid(maxRowOrColLength, visualiserWrapper) {
   const wrapperWidth = visualiserWrapper.clientWidth;
   const wrapperHeight = visualiserWrapper.clientHeight;
 
-  const gridWidth = gridSize;
-  const gridHeight = Math.floor(gridSize * 0.45);
-  // console.log(wrapperWidth);
+  const onMobile = wrapperHeight / wrapperWidth > 1.25;
 
-  const divWidth = (wrapperWidth / gridWidth).toFixed(3);
-  const divHeight = (wrapperHeight / gridHeight).toFixed(3);
+  const nodesInEachRow = onMobile
+    ? Math.round(maxRowOrColLength * 0.45)
+    : maxRowOrColLength;
 
-  for (let y = 0; y < gridHeight; y++) {
+  const nodesInEachCol = onMobile
+    ? maxRowOrColLength
+    : Math.round(maxRowOrColLength * 0.45);
+
+  let divWidth = Math.floor((wrapperWidth / nodesInEachRow) * 1000) / 1000;
+  let divHeight = Math.floor((wrapperHeight / nodesInEachCol) * 1000) / 1000;
+  divWidth = divWidth - 0.05;
+  divHeight = divHeight - 0.03;
+
+  for (let y = 0; y < nodesInEachCol; y++) {
     grid.push(new Array());
-    for (let x = 0; x < gridWidth; x++) {
+    for (let x = 0; x < nodesInEachRow; x++) {
       const div = document.createElement('div');
       div.classList.add('node');
       div.setAttribute('id', y + '-' + x);
       div.style.width = divWidth + 'px';
       div.style.height = divHeight + 'px';
+      div.style.margin = 'auto';
       visualiserWrapper.append(div);
 
       grid[y].push(new Node(`${y}-${x}`));
