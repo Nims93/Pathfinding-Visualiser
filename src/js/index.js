@@ -17,6 +17,8 @@ const animationSpeedBtn = document.querySelector('#animation-speed');
 const pathfindingDropdownBtn = document.querySelector('#pathfinding-dropdown');
 const mazeGenDroptdownBtn = document.querySelector('#maze-dropdown');
 const tutorialBtn = document.querySelector('#help');
+const algoBtns = document.querySelectorAll('.algo-btn');
+const mobileMenuRevealBtn = document.getElementById('sm-controls-menu');
 
 //helper method for clearing all DOM element child nodes
 HTMLElement.prototype.empty = function () {
@@ -32,12 +34,6 @@ HTMLElement.prototype.empty = function () {
 //
 //
 //------------------------------------------------------------
-
-//initialise grid
-//grid.canMutate = false;
-//createGrid(parseInt(gridSizeSlider.value), gridWrapper);
-//setStartEndNodes();
-//grid.canMutate = true;
 
 //load nodes onto page
 document.addEventListener('DOMContentLoaded', () => {
@@ -421,3 +417,13 @@ function handleNextAndPreTutorialClick(e) {
         ].classList.add('visible');
   }
 }
+
+algoBtns.forEach((btn) => {
+  btn.addEventListener('click', (e) => {
+    e.target.blur();
+  });
+});
+
+mobileMenuRevealBtn.addEventListener('click', (e) => {
+  e.target.classList.toggle('open');
+});

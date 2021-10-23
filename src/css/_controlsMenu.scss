@@ -12,164 +12,128 @@
     position: absolute;
     left: 1em;
     font-size: 2em;
-    margin: 0;
-    justify-self: start;
     cursor: default;
+
+    @media (max-width: 880px) {
+      position: relative;
+      left: 0;
+    }
   }
 
-  .range-input-container {
-    margin: 0 0.2em 0 0.4em;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  .grid-size-slider-container {
+    margin: 0.2em 1.5em 0.4em 0;
 
     @media (max-width: 550px) {
       display: none;
     }
 
     label[for='grid-size-slider'] {
+      display: block;
+      text-align: center;
       font-size: 1.5em;
-      //   position: absolute;
-      bottom: 1em;
-      left: 1.9em;
     }
     #grid-size-slider {
+      display: block;
+      margin: auto;
       width: 7em;
-      //   position: relative;
-      top: 0.8em;
     }
   }
 
-  .dropdown-container {
-    position: relative;
-    padding: 0 0.5em;
-    height: 100%;
-    margin: 0 0.2em;
-    border-radius: 4px 4px 0 0;
-    font-weight: bold;
-    transition: background-color 0.4s ease;
-    &:hover {
-      background-color: $highlightColor;
-      transition: background-color 0.4s linear;
-    }
-
-    p {
-      font-size: 1.5em;
-      cursor: default;
-    }
-
-    .dropdown-menu-ul {
-      display: none;
-      list-style: none;
-      position: absolute;
-      top: 3.5em;
-      z-index: 3;
-      padding: 0;
-
-      li {
-        &:last-child button {
-          padding-bottom: 0.5em;
-        }
-
-        button {
-          font-size: 1.2em;
-          padding: 0.5em 1em;
-          width: 100%;
-          border: 1px solid $theme;
-          background-color: $theme;
-          color: $textColor;
-
-          &:hover {
-            background-color: hsl(216, 91%, 64%);
-          }
-
-          &:active {
-            box-sizing: border-box;
-            background-color: rgb(4, 79, 192);
-            transition: none;
-            border: 1px solid black;
-          }
-        }
-      }
-    }
-  }
-
-  #pathfinding-dropdown {
-    ul {
-      right: -2.5em;
-      width: 170%;
-    }
-    &:hover {
-      ul {
-        display: block;
-      }
-    }
-  }
-
-  #maze-dropdown {
-    ul {
-      width: 250%;
-      left: -3.5em;
-    }
-    &:hover {
-      ul {
-        display: block;
-      }
-    }
-  }
-
-  // applies to immediate children and nested button in unordered lists
   button {
     appearance: none;
-    font-size: 1.4em;
     font-weight: bold;
-    border: none;
-    font-family: 'Lato', Arial, sans-serif;
+    border: 2px solid transparent;
+    font-family: inherit;
     color: var(--font-color);
     background-color: var(--theme);
     height: 100%;
-    width: 13em;
 
     &:hover {
       background-color: $highlightColor;
       transition: background-color 0.3s ease;
     }
 
+    &:focus {
+      background-color: $highlightColor;
+    }
+
     &:active {
       background-color: rgb(4, 79, 192);
       transition: none;
-      border: 1px solid black;
+      border: 2px solid black;
     }
   }
 
   #animation-speed {
     width: 8.7em;
     padding: 0;
-    border-radius: 4px;
     margin: 0 0.2em;
   }
 
   #clear-board {
     width: 6em;
     padding: 0;
-    border-radius: 4px;
     margin: 0 0.2em;
   }
 
   #help {
-    width: 2em;
-    height: 2em;
+    width: 25px;
+    height: 25px;
     margin-left: 0.5em;
     border-radius: 50%;
     border: 2px solid $highlightColor;
   }
 }
 
-@media screen and (max-width: 880px) {
-  #controls-menu {
-    h1.title {
-      position: relative;
-      left: 0;
+//dropdown menu styling
+.dropdown-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border: 2px solid transparent;
+  width: 9em;
+  height: 100%;
+  cursor: default;
+
+  &:hover {
+    background-color: $highlightColor;
+    transition: background-color 0.3s linear;
+
+    .dropdown-menu-ul {
+      display: initial;
+    }
+  }
+
+  &:focus-within {
+    background-color: $highlightColor;
+
+    .dropdown-menu-ul {
+      display: initial;
+    }
+  }
+
+  p {
+    font-size: 1.5em;
+    cursor: default;
+  }
+
+  .dropdown-menu-ul {
+    display: none;
+    list-style: none;
+    position: absolute;
+    top: 3em;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0;
+    width: 15em;
+    z-index: 3;
+    background-color: $theme;
+
+    button {
+      width: 100%;
+      font-size: 1.3em;
+      padding: 0.5em 1em;
     }
   }
 }

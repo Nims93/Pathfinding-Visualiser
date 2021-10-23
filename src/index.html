@@ -7,9 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pathfinding Visualiser</title>
   <link href="./css/styles.css" rel="stylesheet" type="text/css" />
-  <!-- <script type="module" src="./js/GraphAlgorithms.js"></script> -->
-  <!-- <script type="module" src="./js/DataStructures.js"></script> -->
-  <script type="module" src="./js/index.js"></script>
+  <script src="./js/index.js" defer></script>
 </head>
 
 <body>
@@ -17,34 +15,35 @@
     <div id="controls-menu">
       <h1 class='title'>Pathfinding Visualiser</h1>
 
-      <div class="range-input-container">
+      <div class="grid-size-slider-container">
         <label for="grid-size-slider">Grid Size</label>
         <input type="range" min="10" max="60" step="10" value="40" id="grid-size-slider" />
       </div>
 
-      <div class="dropdown-container" id="maze-dropdown">
-        <p class='maze-title'>Mazes</p>
+      <div class="dropdown-container" id="maze-dropdown" tabindex="0">
+        <p>Mazes</p>
         <ul class="dropdown-menu-ul">
-          <li><Button value="backtracker" id="recursive-backtracker">Recursive Backtracker</Button></li>
-          <li><button value="division" id="recursive-division">Recursive Division</button></li>
-          <li><button value="random" id="random-walls">Random Walls</button></li>
+          <li><Button value="backtracker" class="algo-btn" id="recursive-backtracker" tabindex="0">Recursive Backtracker</Button></li>
+          <li><button value="division" class="algo-btn" id="recursive-division" tabindex="0">Recursive Division</button></li>
+          <li><button value="random" class="algo-btn" id="random-walls" tabindex="0">Random Walls</button></li>
         </ul>
       </div>
 
-      <div class="dropdown-container" id="pathfinding-dropdown">
+      <div class="dropdown-container" id="pathfinding-dropdown" tabindex="0">
         <p>Algorithms</p>
         <ul class="dropdown-menu-ul">
-          <li><button value="a*" id="a-star">A*</button></li>
-          <li><button value="gbfs" id="gbfs">Greedy BFS</button></li>
-          <li><button value="bdbfs" id="bdbfs">Bi-Directional BFS</button></li>
-          <li><button value="bfs" id="bfs">Breadth First Search</button></li>
-          <li><button value="dfs" id="dfs">Depth First Search</button></li>
+          <li><button value="a*" class="algo-btn" id="a-star">A*</button></li>
+          <li><button value="gbfs" class="algo-btn" id="gbfs">Greedy BFS</button></li>
+          <li><button value="bdbfs" class="algo-btn" id="bdbfs">Bi-Directional BFS</button></li>
+          <li><button value="bfs" class="algo-btn" id="bfs">Breadth First Search</button></li>
+          <li><button value="dfs" class="algo-btn" id="dfs">Depth First Search</button></li>
         </ul>
       </div>
 
       <button id="animation-speed" value="fast" type="button">Animations: Fast</button>
       <button id="clear-board">Clear Board</button>
       <button id="help">?</button>
+      <div id="sm-controls-menu">&#9776</div>
     </div>
 
     <div class="legend">
