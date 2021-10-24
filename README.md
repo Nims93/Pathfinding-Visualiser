@@ -20,8 +20,8 @@ This app visualises 5 pathfinding and 3 maze generation algorithms. Fully respon
 
 #### The maze generation algorithms are:
 
-- Recursive Division - Creates long corridoors
-- Recursive Backtracker - Creates winding paths
-- Random Walls Generator - Places walls nodes in random places
+- **Recursive Division** - Creates long corridoors
+- **Recursive Backtracker** - Creates winding paths
+- **Random Walls Generator** - Places walls nodes in random places
 
 I made this application to get a full grasp of javascript as the best way to learn is through creating. I love buildingit and I hope you enjoy using it!
