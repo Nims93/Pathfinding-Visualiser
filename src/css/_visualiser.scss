@@ -1,14 +1,10 @@
-:root {
-  --visualiserWidth: 95vw;
-}
-
 main {
-  height: calc(100vh - 105px);
+  height: 100%;
 
   .visualiser {
     // box-sizing: initial;
-    height: 95%;
-    width: var(--visualiserWidth);
+    height: 98%;
+    width: 98%;
     margin: 0 auto;
     background-color: $wallColor;
     font-size: 0;
@@ -16,13 +12,15 @@ main {
     border: 1px solid hsl(180, 2%, 44%);
     position: relative;
 
-    div {
-      display: inline-block;
+    @media (max-width: 550px) {
+      height: 99%;
+      width: 99%;
     }
   }
 }
 
 .node {
+  display: inline-block;
   background-color: hsl(0, 0%, 100%);
   border: 1px solid hsl(180, 2%, 44%);
   padding: 0;
@@ -65,33 +63,33 @@ main {
   background-position: center;
 }
 
-@keyframes wall {
-  75% {
-    transform: scale(1.25);
-  }
-  100% {
-    background-color: $wallColor;
-  }
-}
+// @keyframes wall {
+//   75% {
+//     transform: scale(1.25);
+//   }
+//   100% {
+//     background-color: $wallColor;
+//   }
+// }
 
-@keyframes visited {
-  0% {
-    transform: scale(0.2);
-  }
-  25% {
-    border-radius: 50%;
-    background-color: hsl(281, 53%, 24%);
-  }
-  70% {
-    transform: scale(1.2);
-  }
-}
+// @keyframes visited {
+//   0% {
+//     transform: scale(0.2);
+//   }
+//   25% {
+//     border-radius: 50%;
+//     background-color: hsl(281, 53%, 24%);
+//   }
+//   70% {
+//     transform: scale(1.2);
+//   }
+// }
 
-@keyframes remove-wall {
-  75% {
-    transform: scale(1.25);
-  }
-  100% {
-    background-color: hsl(0, 0%, 100%);
-  }
-}
+// @keyframes remove-wall {
+//   75% {
+//     transform: scale(1.25);
+//   }
+//   100% {
+//     background-color: hsl(0, 0%, 100%);
+//   }
+// }

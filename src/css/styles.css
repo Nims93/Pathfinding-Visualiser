@@ -211,10 +211,11 @@ body {
 .legend {
   margin: 0;
   width: 100%;
-  height: 40px;
+  line-height: 0;
 }
 .legend ul {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   list-style: none;
@@ -224,21 +225,43 @@ body {
   margin: 0 2em;
   position: relative;
 }
+@media (max-width: 650px) {
+  .legend ul li {
+    margin: 0 auto 0.5em auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+}
 .legend ul li :first-child {
-  height: 3em;
-  width: 3em;
+  height: 2.5em;
+  width: 2.5em;
   position: relative;
   display: inline-block;
   border: 1px solid black;
 }
+@media (max-width: 650px) {
+  .legend ul li :first-child {
+    height: 1.8em;
+    width: 1.8em;
+  }
+}
 .legend ul li :last-child {
-  font-size: 1.5em;
+  font-size: 1.4em;
   display: inline-block;
-  margin-left: 0.5em;
+  margin-left: 0.3em;
   position: relative;
   bottom: 12px;
   color: black;
   font-weight: bold;
+  vertical-align: middle;
+}
+@media (max-width: 650px) {
+  .legend ul li :last-child {
+    display: block;
+    font-size: 1.3em;
+  }
 }
 
 main {
@@ -256,7 +279,8 @@ main .visualiser {
 }
 @media (max-width: 550px) {
   main .visualiser {
-    height: 100%;
+    height: 99%;
+    width: 99%;
   }
 }
 
