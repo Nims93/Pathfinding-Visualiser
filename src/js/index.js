@@ -109,6 +109,8 @@ window.addEventListener('resize', handleWindowResizeHandlePageLoad);
 
 pathfindingDropdownBtn.addEventListener('mousedown', (e) => {
   if (grid.canMutate && e.target?.value) {
+    grid.canMutate = false;
+
     switch (e.target.value) {
       case 'a*':
         grid.previousAlgo = 'a*';
@@ -144,6 +146,8 @@ pathfindingDropdownBtn.addEventListener('mousedown', (e) => {
 
 mazeGenDroptdownBtn.addEventListener('mousedown', (e) => {
   if (grid.canMutate && e.target?.value) {
+    grid.canMutate = false;
+
     switch (e.target.id) {
       case 'recursive-backtracker':
         clearBoard();
