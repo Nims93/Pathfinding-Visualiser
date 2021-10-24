@@ -4,13 +4,13 @@
 
 ![Pathfinding Visualiser Demo](src/assets/Pathfinding-Visualiser-Demo.webp)
 
-This app visualises 5 pathfinding and 3 maze generation algorithms. Fully responsive and works just as well on mobile sized devices and touch inputs.
+This app visualizes 5 pathfinding and 3 maze generation algorithms. Fully responsive and works just as well on mobile sized devices and touch inputs.
 
-#### If you like to try it out, the application is live here:
+#### If you'd like to try it out, the application is live here:
 
 #### [https://nims93.github.io/Pathfinding-Visualiser/]("https://nims93.github.io/Pathfinding-Visualiser/")
 
-##### The pathfinding algorithms are:
+The pathfinding algorithms are:
 
 - **A\*** - Guranteed Shortest Path
 - **Greedy Breadth First Search** - Lowest amount of visited nodes
@@ -24,4 +24,4 @@ This app visualises 5 pathfinding and 3 maze generation algorithms. Fully respon
 - **Recursive Backtracker** - Creates winding paths
 - **Random Walls Generator** - Places walls nodes in random places
 
-I made this application to get a full grasp of javascript as the best way to learn is through creating. I love buildingit and I hope you enjoy using it!
+I made this application to get a full grasp of javascript as the best way to learn is through creating. I loved building it and I hope you enjoy it a much as I enjoyed making it!
