@@ -19,6 +19,7 @@ const mazeGenDroptdownBtn = document.querySelector('#maze-dropdown');
 const tutorialBtn = document.querySelector('#help');
 const algoBtns = document.querySelectorAll('.algo-btn');
 const mobileMenuRevealBtn = document.getElementById('sm-controls-menu');
+const dropdownContainers = document.querySelectorAll('.dropdown-container');
 
 //helper method for clearing all DOM element child nodes
 HTMLElement.prototype.empty = function () {
@@ -106,9 +107,8 @@ function handleWindowResizeHandlePageLoad() {
 
 window.addEventListener('resize', handleWindowResizeHandlePageLoad);
 
-pathfindingDropdownBtn.addEventListener('click', (e) => {
-  if (grid.canMutate) {
-    grid.canMutate = false;
+pathfindingDropdownBtn.addEventListener('mousedown', (e) => {
+  if (grid.canMutate && e.target?.value) {
     switch (e.target.value) {
       case 'a*':
         grid.previousAlgo = 'a*';
@@ -142,9 +142,8 @@ pathfindingDropdownBtn.addEventListener('click', (e) => {
   }
 });
 
-mazeGenDroptdownBtn.addEventListener('click', (e) => {
-  if (grid.canMutate) {
-    grid.canMutate = false;
+mazeGenDroptdownBtn.addEventListener('mousedown', (e) => {
+  if (grid.canMutate && e.target?.value) {
     switch (e.target.id) {
       case 'recursive-backtracker':
         clearBoard();
@@ -164,7 +163,7 @@ mazeGenDroptdownBtn.addEventListener('click', (e) => {
   }
 });
 
-animationSpeedBtn.addEventListener('click', (e) => {
+animationSpeedBtn.addEventListener('mousedown', (e) => {
   switch (e.target.value) {
     case 'fast':
       //change from fast to slow on click
@@ -389,10 +388,10 @@ const tutorialNextAndPrevBtns = document.querySelectorAll(
 );
 
 for (let btn of tutorialNextAndPrevBtns) {
-  btn.addEventListener('click', handleNextAndPreTutorialClick);
+  btn.addEventListener('click', handleNextAndPrevTutorialClick);
 }
 
-function handleNextAndPreTutorialClick(e) {
+function handleNextAndPrevTutorialClick(e) {
   const pageChangeBtn = e.currentTarget;
   const tutorialWrapper = document.querySelector('.tutorial-wrapper');
 
@@ -419,11 +418,35 @@ function handleNextAndPreTutorialClick(e) {
 }
 
 algoBtns.forEach((btn) => {
-  btn.addEventListener('click', (e) => {
+  btn.addEventListener('mouseup', (e) => {
+    e.target.id != 'animation-speed' &&
+      document.getElementById('controls-menu').classList.remove('mobile-open');
+    e.target.parentNode.parentNode.parentNode.classList.remove('open');
     e.target.blur();
+    e.preventDefault();
   });
 });
 
-mobileMenuRevealBtn.addEventListener('click', (e) => {
-  e.target.classList.toggle('open');
+mobileMenuRevealBtn.addEventListener('mousedown', (e) => {
+  e.stopPropagation();
+  e.preventDefault();
+  document.getElementById('controls-menu').classList.toggle('mobile-open');
+});
+
+dropdownContainers.forEach((container) => {
+  container.addEventListener('click', (e) => {
+    e.target.classList.toggle('open');
+  });
+});
+
+document.addEventListener('mouseup', (e) => {
+  const eleWithOpenClass = document.querySelector('.open');
+
+  if (!eleWithOpenClass || eleWithOpenClass === e.target) return;
+  else if (eleWithOpenClass) {
+    const children = [...eleWithOpenClass.querySelectorAll('*')];
+    if (!children.includes(e.target)) {
+      eleWithOpenClass.classList.remove('open');
+    }
+  }
 });

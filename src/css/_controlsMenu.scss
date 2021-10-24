@@ -14,74 +14,85 @@
     font-size: 2em;
     cursor: default;
 
-    @media (max-width: 880px) {
+    @media (max-width: 1000px) {
       position: relative;
       left: 0;
+      // margin-right: 2em;
     }
   }
-
-  .grid-size-slider-container {
-    margin: 0.2em 1.5em 0.4em 0;
-
-    @media (max-width: 550px) {
-      display: none;
-    }
-
-    label[for='grid-size-slider'] {
-      display: block;
-      text-align: center;
-      font-size: 1.5em;
-    }
-    #grid-size-slider {
-      display: block;
-      margin: auto;
-      width: 7em;
-    }
-  }
-
-  button {
-    appearance: none;
-    font-weight: bold;
-    border: 2px solid transparent;
-    font-family: inherit;
-    color: var(--font-color);
-    background-color: var(--theme);
+  .controls-wrapper {
     height: 100%;
+    display: flex;
 
-    &:hover {
-      background-color: $highlightColor;
-      transition: background-color 0.3s ease;
+    .grid-size-slider-container {
+      margin: 0.2em 1.5em 0.4em 0;
+
+      @media (max-width: 600px) {
+        display: none;
+      }
+
+      label[for='grid-size-slider'] {
+        display: block;
+        text-align: center;
+        font-size: 1.4em;
+      }
+      #grid-size-slider {
+        display: block;
+        margin: auto;
+        width: 7em;
+      }
     }
 
-    &:focus {
-      background-color: $highlightColor;
+    button {
+      appearance: none;
+      font-weight: bold;
+      border: 2px solid transparent;
+      font-family: inherit;
+      color: var(--font-color);
+      background-color: var(--theme);
+      height: 100%;
+
+      &:hover {
+        background-color: $highlightColor;
+        transition: background-color 0.3s ease;
+      }
+
+      &:focus-within {
+        background-color: $highlightColor;
+      }
+
+      &:active {
+        background-color: rgb(4, 79, 192);
+        transition: none;
+        border: 2px solid black;
+      }
     }
 
-    &:active {
-      background-color: rgb(4, 79, 192);
-      transition: none;
-      border: 2px solid black;
+    #animation-speed {
+      width: 8.7em;
+      padding: 0;
+      margin: 0 0.2em;
+    }
+
+    #clear-board {
+      width: 6em;
+      padding: 0;
+      margin: 0 0.2em;
+    }
+
+    #help {
+      width: 25px;
+      height: 25px;
+      margin: auto 0.3em;
+      border-radius: 50%;
+      border: 2px solid $highlightColor;
     }
   }
 
-  #animation-speed {
-    width: 8.7em;
-    padding: 0;
-    margin: 0 0.2em;
-  }
-
-  #clear-board {
-    width: 6em;
-    padding: 0;
-    margin: 0 0.2em;
-  }
-
-  #help {
-    width: 25px;
-    height: 25px;
-    margin-left: 0.5em;
-    border-radius: 50%;
-    border: 2px solid $highlightColor;
+  #sm-controls-menu {
+    display: none;
+    font-size: 3.5em;
+    padding: 0 0.2em;
   }
 }
 
@@ -92,7 +103,8 @@
   justify-content: center;
   position: relative;
   border: 2px solid transparent;
-  width: 9em;
+  padding: 0 0.3em;
+  // width: 9em;
   height: 100%;
   cursor: default;
 
@@ -100,22 +112,25 @@
     background-color: $highlightColor;
     transition: background-color 0.3s linear;
 
-    .dropdown-menu-ul {
-      display: initial;
-    }
+    // .dropdown-menu-ul {
+    //   display: initial;
+    // }
   }
 
   &:focus-within {
     background-color: $highlightColor;
-
-    .dropdown-menu-ul {
-      display: initial;
-    }
   }
 
   p {
-    font-size: 1.5em;
+    font-size: 1.4em;
     cursor: default;
+    pointer-events: none;
+  }
+
+  &.open {
+    .dropdown-menu-ul {
+      display: initial;
+    }
   }
 
   .dropdown-menu-ul {
@@ -132,8 +147,74 @@
 
     button {
       width: 100%;
-      font-size: 1.3em;
+      // font-size: 1.3em;
       padding: 0.5em 1em;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  #controls-menu #sm-controls-menu {
+    display: initial;
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+  }
+
+  #controls-menu .controls-wrapper {
+    display: none;
+  }
+
+  //reveal all div children except the mobile menu button & grid size range input container
+  #controls-menu.mobile-open .controls-wrapper {
+    position: absolute;
+    right: 0;
+    top: 45px;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: calc(100vh - 45px);
+    z-index: 1;
+    background-color: $theme;
+
+    & > button:not(:last-child) {
+      height: 30px;
+    }
+
+    #animation-speed {
+      width: 100%;
+      margin: 0;
+    }
+
+    #clear-board {
+      width: 100%;
+      margin: 0;
+    }
+
+    #help {
+      margin: 1em auto auto auto;
+    }
+  }
+
+  .dropdown-container {
+    flex-direction: column;
+    justify-content: initial;
+    height: initial;
+    padding: 0;
+
+    p {
+      margin: auto;
+      padding: 0.4em 0;
+      flex-shrink: 0;
+    }
+
+    .dropdown-menu-ul {
+      position: relative;
+      top: initial;
+      left: initial;
+      transform: none;
+      width: 100%;
+      margin: 0;
     }
   }
 }

@@ -11,6 +11,8 @@
 }
 
 body {
+  display: flex;
+  flex-direction: column;
   height: 100vh;
   width: 100vw;
   margin: 0;
@@ -34,31 +36,35 @@ body {
   font-size: 2em;
   cursor: default;
 }
-@media (max-width: 880px) {
+@media (max-width: 1000px) {
   #controls-menu h1.title {
     position: relative;
     left: 0;
   }
 }
-#controls-menu .grid-size-slider-container {
+#controls-menu .controls-wrapper {
+  height: 100%;
+  display: flex;
+}
+#controls-menu .controls-wrapper .grid-size-slider-container {
   margin: 0.2em 1.5em 0.4em 0;
 }
-@media (max-width: 550px) {
-  #controls-menu .grid-size-slider-container {
+@media (max-width: 600px) {
+  #controls-menu .controls-wrapper .grid-size-slider-container {
     display: none;
   }
 }
-#controls-menu .grid-size-slider-container label[for=grid-size-slider] {
+#controls-menu .controls-wrapper .grid-size-slider-container label[for=grid-size-slider] {
   display: block;
   text-align: center;
-  font-size: 1.5em;
+  font-size: 1.4em;
 }
-#controls-menu .grid-size-slider-container #grid-size-slider {
+#controls-menu .controls-wrapper .grid-size-slider-container #grid-size-slider {
   display: block;
   margin: auto;
   width: 7em;
 }
-#controls-menu button {
+#controls-menu .controls-wrapper button {
   appearance: none;
   font-weight: bold;
   border: 2px solid transparent;
@@ -67,34 +73,39 @@ body {
   background-color: var(--theme);
   height: 100%;
 }
-#controls-menu button:hover {
+#controls-menu .controls-wrapper button:hover {
   background-color: #4d91f7;
   transition: background-color 0.3s ease;
 }
-#controls-menu button:focus {
+#controls-menu .controls-wrapper button:focus-within {
   background-color: #4d91f7;
 }
-#controls-menu button:active {
+#controls-menu .controls-wrapper button:active {
   background-color: #044fc0;
   transition: none;
   border: 2px solid black;
 }
-#controls-menu #animation-speed {
+#controls-menu .controls-wrapper #animation-speed {
   width: 8.7em;
   padding: 0;
   margin: 0 0.2em;
 }
-#controls-menu #clear-board {
+#controls-menu .controls-wrapper #clear-board {
   width: 6em;
   padding: 0;
   margin: 0 0.2em;
 }
-#controls-menu #help {
+#controls-menu .controls-wrapper #help {
   width: 25px;
   height: 25px;
-  margin-left: 0.5em;
+  margin: auto 0.3em;
   border-radius: 50%;
   border: 2px solid #4d91f7;
+}
+#controls-menu #sm-controls-menu {
+  display: none;
+  font-size: 3.5em;
+  padding: 0 0.2em;
 }
 
 .dropdown-container {
@@ -103,7 +114,7 @@ body {
   justify-content: center;
   position: relative;
   border: 2px solid transparent;
-  width: 9em;
+  padding: 0 0.3em;
   height: 100%;
   cursor: default;
 }
@@ -111,18 +122,16 @@ body {
   background-color: #4d91f7;
   transition: background-color 0.3s linear;
 }
-.dropdown-container:hover .dropdown-menu-ul {
-  display: initial;
-}
 .dropdown-container:focus-within {
   background-color: #4d91f7;
 }
-.dropdown-container:focus-within .dropdown-menu-ul {
-  display: initial;
-}
 .dropdown-container p {
-  font-size: 1.5em;
+  font-size: 1.4em;
   cursor: default;
+  pointer-events: none;
+}
+.dropdown-container.open .dropdown-menu-ul {
+  display: initial;
 }
 .dropdown-container .dropdown-menu-ul {
   display: none;
@@ -138,10 +147,67 @@ body {
 }
 .dropdown-container .dropdown-menu-ul button {
   width: 100%;
-  font-size: 1.3em;
   padding: 0.5em 1em;
 }
 
+@media (max-width: 600px) {
+  #controls-menu #sm-controls-menu {
+    display: initial;
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+  }
+
+  #controls-menu .controls-wrapper {
+    display: none;
+  }
+
+  #controls-menu.mobile-open .controls-wrapper {
+    position: absolute;
+    right: 0;
+    top: 45px;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: calc(100vh - 45px);
+    z-index: 1;
+    background-color: rgba(48, 48, 48, 0.93);
+  }
+  #controls-menu.mobile-open .controls-wrapper > button:not(:last-child) {
+    height: 30px;
+  }
+  #controls-menu.mobile-open .controls-wrapper #animation-speed {
+    width: 100%;
+    margin: 0;
+  }
+  #controls-menu.mobile-open .controls-wrapper #clear-board {
+    width: 100%;
+    margin: 0;
+  }
+  #controls-menu.mobile-open .controls-wrapper #help {
+    margin: 1em auto auto auto;
+  }
+
+  .dropdown-container {
+    flex-direction: column;
+    justify-content: initial;
+    height: initial;
+    padding: 0;
+  }
+  .dropdown-container p {
+    margin: auto;
+    padding: 0.4em 0;
+    flex-shrink: 0;
+  }
+  .dropdown-container .dropdown-menu-ul {
+    position: relative;
+    top: initial;
+    left: initial;
+    transform: none;
+    width: 100%;
+    margin: 0;
+  }
+}
 .legend {
   margin: 0;
   width: 100%;
@@ -151,20 +217,21 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  list-style: none;
+  padding: 0;
 }
 .legend ul li {
   margin: 0 2em;
   position: relative;
-  list-style-type: none;
 }
-.legend ul li span:first-child {
+.legend ul li :first-child {
   height: 3em;
   width: 3em;
   position: relative;
   display: inline-block;
   border: 1px solid black;
 }
-.legend ul li span:last-child {
+.legend ul li :last-child {
   font-size: 1.5em;
   display: inline-block;
   margin-left: 0.5em;
@@ -174,16 +241,12 @@ body {
   font-weight: bold;
 }
 
-:root {
-  --visualiserWidth: 95vw;
-}
-
 main {
-  height: calc(100vh - 105px);
+  height: 100%;
 }
 main .visualiser {
-  height: 100%;
-  width: var(--visualiserWidth);
+  height: 98%;
+  width: 98%;
   margin: 0 auto;
   background-color: rgba(16, 16, 25, 0.9);
   font-size: 0;

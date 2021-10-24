@@ -13,36 +13,39 @@
 <body>
   <header>
     <div id="controls-menu">
-      <h1 class='title'>Pathfinding Visualiser</h1>
+      <h1 class="title">Pathfinding Visualiser</h1>
+      <div class="controls-wrapper">
+        <div class="grid-size-slider-container">
+          <label for="grid-size-slider">Grid Size</label>
+          <input type="range" min="10" max="60" step="10" value="40" id="grid-size-slider" />
+        </div>
 
-      <div class="grid-size-slider-container">
-        <label for="grid-size-slider">Grid Size</label>
-        <input type="range" min="10" max="60" step="10" value="40" id="grid-size-slider" />
+        <div class="dropdown-container" id="maze-dropdown" tabindex="0">
+          <p>Mazes</p>
+          <ul class="dropdown-menu-ul">
+            <li><button value="backtracker" class="algo-btn" id="recursive-backtracker" tabindex="0">Recursive
+                Backtracker</button></li>
+            <li><button value="division" class="algo-btn" id="recursive-division" tabindex="0">Recursive
+                Division</button></li>
+            <li><button value="random" class="algo-btn" id="random-walls" tabindex="0">Random Walls</button></li>
+          </ul>
+        </div>
+
+        <div class="dropdown-container" id="pathfinding-dropdown" tabindex="0">
+          <p>Algorithms</p>
+          <ul class="dropdown-menu-ul">
+            <li><button value="a*" class="algo-btn" id="a-star">A*</button></li>
+            <li><button value="gbfs" class="algo-btn" id="gbfs">Greedy BFS</button></li>
+            <li><button value="bdbfs" class="algo-btn" id="bdbfs">Bi-Directional BFS</button></li>
+            <li><button value="bfs" class="algo-btn" id="bfs">Breadth First Search</button></li>
+            <li><button value="dfs" class="algo-btn" id="dfs">Depth First Search</button></li>
+          </ul>
+        </div>
+
+        <button id="animation-speed" value="fast" type="button">Animations: Fast</button>
+        <button id="clear-board">Clear Board</button>
+        <button id="help">?</button>
       </div>
-
-      <div class="dropdown-container" id="maze-dropdown" tabindex="0">
-        <p>Mazes</p>
-        <ul class="dropdown-menu-ul">
-          <li><Button value="backtracker" class="algo-btn" id="recursive-backtracker" tabindex="0">Recursive Backtracker</Button></li>
-          <li><button value="division" class="algo-btn" id="recursive-division" tabindex="0">Recursive Division</button></li>
-          <li><button value="random" class="algo-btn" id="random-walls" tabindex="0">Random Walls</button></li>
-        </ul>
-      </div>
-
-      <div class="dropdown-container" id="pathfinding-dropdown" tabindex="0">
-        <p>Algorithms</p>
-        <ul class="dropdown-menu-ul">
-          <li><button value="a*" class="algo-btn" id="a-star">A*</button></li>
-          <li><button value="gbfs" class="algo-btn" id="gbfs">Greedy BFS</button></li>
-          <li><button value="bdbfs" class="algo-btn" id="bdbfs">Bi-Directional BFS</button></li>
-          <li><button value="bfs" class="algo-btn" id="bfs">Breadth First Search</button></li>
-          <li><button value="dfs" class="algo-btn" id="dfs">Depth First Search</button></li>
-        </ul>
-      </div>
-
-      <button id="animation-speed" value="fast" type="button">Animations: Fast</button>
-      <button id="clear-board">Clear Board</button>
-      <button id="help">?</button>
       <div id="sm-controls-menu">&#9776</div>
     </div>
 
@@ -62,15 +65,15 @@
   </main>
   <div class="tutorial-transparency-layer">
     <div class="tutorial-wrapper">
-      <div id="pathfinding-demo" class='tutorial-slide visible'>
+      <div id="pathfinding-demo" class="tutorial-slide visible">
         <div class="tutorial-top-row">
-          <span class='slide-number'>1 / 7</span>
+          <span class="slide-number">1 / 7</span>
           <h2 class="tutorial-slide-title">Pathfinding</h2>
           <button class="close-tutorial">
             <img src="./assets/x.svg" alt="">
           </button>
         </div>
-        <img class='tutorial-video' src="./assets/pathfinding-demo.webp" alt="demo of pathfinding algorithms">
+        <img class="tutorial-video" src="./assets/pathfinding-demo.webp" alt="demo of pathfinding algorithms">
         <p class="tutorial-text">Mouseover the Algorithm menu and select the pathfinding algorithm you want to create a
           path if one exists. <strong>A*:</strong> Guaranteed shortest path. <strong>Greedy Bredth First
             Search:</strong> Path with the very basic direction heuristic, most of the time will find a path with the
@@ -81,13 +84,13 @@
         <div class="tutorial-bottom-row">
           <button class="previous-tutorial-slide tutorial-switcher-btn">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left"
-              viewBox="0 0 16 16">
+              viewbox="0 0 16 16">
               <path
                 d="M10 12.796V3.204L4.519 8 10 12.796zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753z" />
             </svg>
           </button>
           <button class="next-tutorial-slide tutorial-switcher-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16"
-              height="16" fill="currentColor" class="bi bi-caret-right" viewBox="0 0 16 16">
+              height="16" fill="currentColor" class="bi bi-caret-right" viewbox="0 0 16 16">
               <path
                 d="M6 12.796V3.204L11.481 8 6 12.796zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z" />
             </svg>
@@ -95,15 +98,15 @@
         </div>
       </div>
 
-      <div id="animation-speed-demo" class='tutorial-slide'>
+      <div id="animation-speed-demo" class="tutorial-slide">
         <div class="tutorial-top-row">
-          <span class='slide-number'>2 / 7</span>
+          <span class="slide-number">2 / 7</span>
           <h2 class="tutorial-slide-title">Animation Speed</h2>
           <button class="close-tutorial">
             <img src="./assets/x.svg" alt="">
           </button>
         </div>
-        <img class='tutorial-video' src="./assets/animation-speed-demo.webp" alt="demo of animation speed">
+        <img class="tutorial-video" src="./assets/animation-speed-demo.webp" alt="demo of animation speed">
         <p class="tutorial-text">Click on the animation speed to toggle between speed of pathfinding animations.
           <strong>Fast:</strong> the algorithm will animate and end quickly. <strong>Slow:</strong> the algorithm will
           animate and end slowly. <strong>None:</strong> the algorithm will not animate and the path (if one exists)
@@ -112,13 +115,13 @@
         <div class="tutorial-bottom-row">
           <button class="previous-tutorial-slide tutorial-switcher-btn">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left"
-              viewBox="0 0 16 16">
+              viewbox="0 0 16 16">
               <path
                 d="M10 12.796V3.204L4.519 8 10 12.796zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753z" />
             </svg>
           </button>
           <button class="next-tutorial-slide tutorial-switcher-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16"
-              height="16" fill="currentColor" class="bi bi-caret-right" viewBox="0 0 16 16">
+              height="16" fill="currentColor" class="bi bi-caret-right" viewbox="0 0 16 16">
               <path
                 d="M6 12.796V3.204L11.481 8 6 12.796zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z" />
             </svg>
@@ -126,26 +129,26 @@
         </div>
       </div>
 
-      <div id="walls-demo" class='tutorial-slide'>
+      <div id="walls-demo" class="tutorial-slide">
         <div class="tutorial-top-row">
-          <span class='slide-number'>3 / 7</span>
+          <span class="slide-number">3 / 7</span>
           <h2 class="tutorial-slide-title">Maze Generation</h2>
           <button class="close-tutorial">
             <img src="./assets/x.svg" alt="">
           </button>
         </div>
-        <img class='tutorial-video' src="./assets/maze-gen-demo.webp" alt="demo of maze algorithm generator">
+        <img class="tutorial-video" src="./assets/maze-gen-demo.webp" alt="demo of maze algorithm generator">
         <p class="tutorial-text">Hover over the mazes dropdown menu and click on the maze generation method you want to
           create a maze. Maze generation is subject to the animation speed toggle.</p>
         <div class="tutorial-bottom-row">
           <button class="previous-tutorial-slide tutorial-switcher-btn"><svg xmlns="http://www.w3.org/2000/svg"
-              width="16" height="16" fill="currentColor" class="bi bi-caret-left" viewBox="0 0 16 16">
+              width="16" height="16" fill="currentColor" class="bi bi-caret-left" viewbox="0 0 16 16">
               <path
                 d="M10 12.796V3.204L4.519 8 10 12.796zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753z" />
             </svg>
           </button>
           <button class="next-tutorial-slide tutorial-switcher-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16"
-              height="16" fill="currentColor" class="bi bi-caret-right" viewBox="0 0 16 16">
+              height="16" fill="currentColor" class="bi bi-caret-right" viewbox="0 0 16 16">
               <path
                 d="M6 12.796V3.204L11.481 8 6 12.796zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z" />
             </svg>
@@ -153,26 +156,26 @@
         </div>
       </div>
 
-      <div id="draw-walls-demo" class='tutorial-slide'>
+      <div id="draw-walls-demo" class="tutorial-slide">
         <div class="tutorial-top-row">
-          <span class='slide-number'>4 / 7</span>
+          <span class="slide-number">4 / 7</span>
           <h2 class="tutorial-slide-title">Wall Drawing</h2>
           <button class="close-tutorial">
             <img src="./assets/x.svg" alt="">
           </button>
         </div>
-        <img class='tutorial-video' src="./assets/draw-walls.webp" alt="demo of mouse wall drawing">
+        <img class="tutorial-video" src="./assets/draw-walls.webp" alt="demo of mouse wall drawing">
         <p class="tutorial-text">You can also create you own maze by holding down by left click or clicking and dragging
           to create a continuous wall. Clicking or clikc dragging over a wall node will also remove it.</p>
         <div class="tutorial-bottom-row">
           <button class="previous-tutorial-slide tutorial-switcher-btn"><svg xmlns="http://www.w3.org/2000/svg"
-              width="16" height="16" fill="currentColor" class="bi bi-caret-left" viewBox="0 0 16 16">
+              width="16" height="16" fill="currentColor" class="bi bi-caret-left" viewbox="0 0 16 16">
               <path
                 d="M10 12.796V3.204L4.519 8 10 12.796zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753z" />
             </svg>
           </button>
           <button class="next-tutorial-slide tutorial-switcher-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16"
-              height="16" fill="currentColor" class="bi bi-caret-right" viewBox="0 0 16 16">
+              height="16" fill="currentColor" class="bi bi-caret-right" viewbox="0 0 16 16">
               <path
                 d="M6 12.796V3.204L11.481 8 6 12.796zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z" />
             </svg>
@@ -180,26 +183,26 @@
         </div>
       </div>
 
-      <div id="realtime-pathfinding-demo" class='tutorial-slide'>
+      <div id="realtime-pathfinding-demo" class="tutorial-slide">
         <div class="tutorial-top-row">
-          <span class='slide-number'>5 / 7</span>
+          <span class="slide-number">5 / 7</span>
           <h2 class="tutorial-slide-title">Realtime Pathfinding</h2>
           <button class="close-tutorial">
             <img src="./assets/x.svg" alt="">
           </button>
         </div>
-        <img class='tutorial-video' src="./assets/drag-realtime-pathfinding.webp" alt="demo of mouse move pathfinding">
+        <img class="tutorial-video" src="./assets/drag-realtime-pathfinding.webp" alt="demo of mouse move pathfinding">
         <p class="tutorial-text">If you have already clicked and executed a pathfinding algorithm you can now click and
           drag either the start or end nodes to get a realtime search and path as you go.</p>
         <div class="tutorial-bottom-row">
           <button class="previous-tutorial-slide tutorial-switcher-btn"><svg xmlns="http://www.w3.org/2000/svg"
-              width="16" height="16" fill="currentColor" class="bi bi-caret-left" viewBox="0 0 16 16">
+              width="16" height="16" fill="currentColor" class="bi bi-caret-left" viewbox="0 0 16 16">
               <path
                 d="M10 12.796V3.204L4.519 8 10 12.796zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753z" />
             </svg>
           </button>
           <button class="next-tutorial-slide tutorial-switcher-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16"
-              height="16" fill="currentColor" class="bi bi-caret-right" viewBox="0 0 16 16">
+              height="16" fill="currentColor" class="bi bi-caret-right" viewbox="0 0 16 16">
               <path
                 d="M6 12.796V3.204L11.481 8 6 12.796zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z" />
             </svg>
@@ -207,26 +210,26 @@
         </div>
       </div>
 
-      <div id="clear-button-demo" class='tutorial-slide'>
+      <div id="clear-button-demo" class="tutorial-slide">
         <div class="tutorial-top-row">
-          <span class='slide-number'>6 / 7</span>
+          <span class="slide-number">6 / 7</span>
           <h2 class="tutorial-slide-title">Clearing the Board</h2>
           <button class="close-tutorial">
             <img src="./assets/x.svg" alt="">
           </button>
         </div>
-        <img class='tutorial-video' src="./assets/clear-button.webp" alt="demo of clear button">
+        <img class="tutorial-video" src="./assets/clear-button.webp" alt="demo of clear button">
         <p class="tutorial-text">Click the "Clear Board" button to remove all pathfinding and wall nodes. Clearing the
           board also disables relatime pathfinding.</p>
         <div class="tutorial-bottom-row">
           <button class="previous-tutorial-slide tutorial-switcher-btn"><svg xmlns="http://www.w3.org/2000/svg"
-              width="16" height="16" fill="currentColor" class="bi bi-caret-left" viewBox="0 0 16 16">
+              width="16" height="16" fill="currentColor" class="bi bi-caret-left" viewbox="0 0 16 16">
               <path
                 d="M10 12.796V3.204L4.519 8 10 12.796zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753z" />
             </svg>
           </button>
           <button class="next-tutorial-slide tutorial-switcher-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16"
-              height="16" fill="currentColor" class="bi bi-caret-right" viewBox="0 0 16 16">
+              height="16" fill="currentColor" class="bi bi-caret-right" viewbox="0 0 16 16">
               <path
                 d="M6 12.796V3.204L11.481 8 6 12.796zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z" />
             </svg>
@@ -234,28 +237,28 @@
         </div>
       </div>
 
-      <div id="grid-size-demo" class='tutorial-slide'>
+      <div id="grid-size-demo" class="tutorial-slide">
         <div class="tutorial-top-row">
-          <span class='slide-number'>7 / 7</span>
+          <span class="slide-number">7 / 7</span>
           <h2 class="tutorial-slide-title">Change Grid Size</h2>
           <button class="close-tutorial">
             <img src="./assets/x.svg" alt="">
           </button>
         </div>
-        <img class='tutorial-video' src="./assets/grid-size-slider-demo.webp" alt="demo of grid size slider">
+        <img class="tutorial-video" src="./assets/grid-size-slider-demo.webp" alt="demo of grid size slider">
         <p class="tutorial-text">Finally, you cna change the grid size with grid ize slider . The larger the grid the
           longer it will potentially take to find a path. The pathfinder may become laggy on larger grid sizes so be
           careful with the total amount of nodes the pathfinding algorithm will have to search (as indicated by the blue
           nodes).</p>
         <div class="tutorial-bottom-row">
           <button class="previous-tutorial-slide tutorial-switcher-btn"><svg xmlns="http://www.w3.org/2000/svg"
-              width="16" height="16" fill="currentColor" class="bi bi-caret-left" viewBox="0 0 16 16">
+              width="16" height="16" fill="currentColor" class="bi bi-caret-left" viewbox="0 0 16 16">
               <path
                 d="M10 12.796V3.204L4.519 8 10 12.796zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753z" />
             </svg>
           </button>
           <button class="next-tutorial-slide tutorial-switcher-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16"
-              height="16" fill="currentColor" class="bi bi-caret-right" viewBox="0 0 16 16">
+              height="16" fill="currentColor" class="bi bi-caret-right" viewbox="0 0 16 16">
               <path
                 d="M6 12.796V3.204L11.481 8 6 12.796zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z" />
             </svg>
