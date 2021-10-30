@@ -8,7 +8,7 @@ This app visualizes 5 pathfinding and 3 maze generation algorithms. Fully respon
 
 #### If you'd like to try it out, the application is live here:
 
-#### [https://nims93.github.io/Pathfinding-Visualiser/]("https://nims93.github.io/Pathfinding-Visualiser/")
+#### [https://nims93.github.io/Pathfinding-Visualiser/](https://nims93.github.io/Pathfinding-Visualiser/)
 
 The pathfinding algorithms are:
 
